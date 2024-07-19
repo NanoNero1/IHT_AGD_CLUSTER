@@ -124,7 +124,7 @@ datasetChoice = dataLoaders.datasetChoice
 train_loader = dataLoaders.train_loader
 test_loader = dataLoaders.test_loader
 #abort() # I should have the data loaded locally!!!!
-abort()
+#abort()
 # Just for debugging
 #import IHT_AGD.architectures.architect
 #IHT_AGD.architectures.architect.seeVariable
