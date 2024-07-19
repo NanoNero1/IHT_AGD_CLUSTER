@@ -101,7 +101,7 @@ import os
 path = os.getcwd()
 print(path)
 
-ihtPath = os.path.join(path,"/IHT_AGD")
+ihtPath = path + "/IHT_AGD"
 os.chdir(ihtPath)
 path = os.getcwd()
 print(path)
