@@ -10,4 +10,4 @@ module load python/anaconda3
 
 eval "$(conda shell.bash hook)"  
 conda activate redenv 
-python testCUDA.py
+python cluster_iht_agd.py
