@@ -95,7 +95,9 @@ subprocess.call(["git", "clone","https://github.com/NanoNero1/IHT_AGD"])
 
 # NOTE: for some reason, there is difficulty in what directory git pull should be called
 #!git pull
+subprocess.call(["cd", "IHT_AGD"])
 subprocess.call(["git", "pull"])
+subprocess.call(["cd", "../"])
 
 # Data Collection
 import IHT_AGD.data_loaders.dataLoaders as dataLoaders
