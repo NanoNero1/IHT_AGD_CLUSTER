@@ -106,14 +106,16 @@ os.chdir(ihtPath)
 path = os.getcwd()
 print(path)
 
+subprocess.call(["git", "pull"])
+
 os.chdir("..")
 path = os.getcwd()
 print(path)
 
 #subprocess.call(["cd", "IHT_AGD"])
-#subprocess.call(["git", "pull"])
+#
 
-abort()
+
 
 
 # Data Collection
