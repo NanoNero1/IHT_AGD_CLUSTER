@@ -228,7 +228,7 @@ print(setups)
 run = neptune.init_run(api_token=api_token, project=project)
 runPipeline(setups,
             datasetChoice="MNIST",
-            epochs=10,trials=5,
+            epochs=20,trials=3,
             functionsToHelpTrack=functionsToHelpTrack,
             variablesToTrack=variablesToTrack,
             expensiveVariables=expensiveVariables,
