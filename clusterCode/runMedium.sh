@@ -3,7 +3,7 @@
 #SBATCH --nodes=1                # node count
 #SBATCH --ntasks=1               # total number of tasks across all nodes
 #SBATCH --gpus-per-node=a100_3g.40gb:1
-#SBATCH --time=00:05:00          # total run time limit (HH:MM:SS)
+#SBATCH --time=00:30:00          # total run time limit (HH:MM:SS)
 
 module purge
 module load python/anaconda3
