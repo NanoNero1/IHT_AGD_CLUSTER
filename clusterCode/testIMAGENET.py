@@ -1,6 +1,8 @@
 import torch
 import torchvision.transforms
 from datasets import load_dataset
+
+from torchvision.models import resnet50
 import time
 
 # If the dataset is gated/private, make sure you have run huggingface-cli login
