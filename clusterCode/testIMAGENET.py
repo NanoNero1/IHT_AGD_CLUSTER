@@ -13,7 +13,7 @@ timeTwo = time.time()
 print(timeTwo - timeOne)
 
 # Select the first row in the dataset
-sample = dataset[0]
+sample = dataset['train'][0]
 
 # Split up the sample into two variables
 datapt, label = sample['image'], sample['label']
