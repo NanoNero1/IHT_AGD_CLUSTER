@@ -124,6 +124,7 @@ datasetChoice = dataLoaders.datasetChoice
 
 ##############################
 from datasets import load_dataset
+from torchvision.transforms import Lambda
 import time
 
 # If the dataset is gated/private, make sure you have run huggingface-cli login
