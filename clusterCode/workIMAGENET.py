@@ -188,6 +188,8 @@ else:
     test_loader = torch.utils.data.DataLoader(test_set, batch_size=BATCH_SIZE)
 
 print("so far so good!, the data is loaded")
+print(datasetChoice)
+abort()
 
 
 ##############################
