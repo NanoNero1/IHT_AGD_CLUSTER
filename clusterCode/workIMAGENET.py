@@ -188,8 +188,10 @@ print("so far so good!")
 ##############################
 
 
-###train_loader = dataLoaders.train_loader
-###test_loader = dataLoaders.test_loader
+train_loader = dataLoaders.train_loader
+test_loader = dataLoaders.test_loader
+
+print(train_loader[3]['label'])
 
 
 
