@@ -122,6 +122,13 @@ print(path)
 import IHT_AGD.data_loaders.dataLoaders as dataLoaders
 datasetChoice = dataLoaders.datasetChoice
 
+train_loader = dataLoaders.train_loader
+test_loader = dataLoaders.test_loader
+
+abort()
+
+print(train_loader[3]['label'])
+
 ##############################
 from datasets import load_dataset
 from torchvision.transforms import Lambda
@@ -186,12 +193,6 @@ print("so far so good!")
 
 
 ##############################
-
-
-train_loader = dataLoaders.train_loader
-test_loader = dataLoaders.test_loader
-
-print(train_loader[3]['label'])
 
 
 
