@@ -186,10 +186,11 @@ else:
 
     train_loader = torch.utils.data.DataLoader(train_set, batch_size=BATCH_SIZE, shuffle=True)
     test_loader = torch.utils.data.DataLoader(test_set, batch_size=BATCH_SIZE)
+    datasetChoice = "IMAGENET"
 
 print("so far so good!, the data is loaded")
 print(datasetChoice)
-abort()
+
 
 
 ##############################
@@ -245,9 +246,6 @@ print(setups)
 
 """# Running the Experiment"""
 
-datasetChoice = "IMAGENET"
-print(datasetChoice)
-
 """ MAIN CELL """
 #setups = [setup_ihtAGD]#,setup_vanillaSGD]#,setup_ihtAGD]
 #setups = [setup_pytorchSGD]
@@ -256,7 +254,7 @@ print(setups)
 
 run = neptune.init_run(api_token=api_token, project=project)
 runPipeline(setups,
-            datasetChoice="IMAGENET",
+            datasetChoice=datasetChoice,
             epochs=20,trials=1,
             functionsToHelpTrack=functionsToHelpTrack,
             variablesToTrack=variablesToTrack,
