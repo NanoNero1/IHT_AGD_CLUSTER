@@ -32,7 +32,10 @@ def weights_init_uniform_rule(m):
     m.bias.data.fill_(0)
 
 #_, term_width = os.popen('stty size', 'r').read().split()
-term_width = os.get_terminal_size()[0]
+#term_width = os.get_terminal_size()[0]
+
+#Dimitri note: hard coded, for some reason on the CLI it doesn't like it
+term_width = 120
 term_width = int(term_width)
 
 TOTAL_BAR_LENGTH = 65.
