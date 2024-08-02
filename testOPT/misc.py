@@ -31,7 +31,8 @@ def weights_init_uniform_rule(m):
     m.weight.data.uniform_(-y, y)
     m.bias.data.fill_(0)
 
-_, term_width = os.popen('stty size', 'r').read().split()
+#_, term_width = os.popen('stty size', 'r').read().split()
+term_width = os.get_terminal_size()[0]
 term_width = int(term_width)
 
 TOTAL_BAR_LENGTH = 65.
