@@ -19,6 +19,10 @@ from AdaACSA import *
 from AdaAGDplus import *
 from AdaJRGS import *
 
+#Dimitri's Optimizers
+
+
+
 from loader import *
 from models import MODELS_MAP
 from misc import *
