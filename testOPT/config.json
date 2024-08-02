@@ -10,9 +10,13 @@
     "radius": 2, 
     "projected": 1, 
     "epochs": 60, 
-    "tb_path": "/scratch/avladu/dumb/",
+    "tb_path": "/IRIF_AGD/testing_area_cl/IHT_AGD_CLUSTER/testOPT/no_tb",
     "batch_statistics_freq": 100,
     "dump_movement": 0,
     "gamma0":1,
-    "random_seed": 0
+    "random_seed": 0,
+
+    "initial_accumulator_value":1,
+    "beta":1.0,
+    "eps":0.01
 }

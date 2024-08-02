@@ -8,7 +8,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torchvision
 import torchvision.transforms as transforms
-from torch.utils.tensorboard import SummaryWriter
+##from torch.utils.tensorboard import SummaryWriter
 import torch.optim as optim
 import matplotlib.pyplot as plt
 import numpy as np
@@ -37,18 +37,18 @@ def flat_weight_dump(model):
     return flat_tensor
 
 
-def tb_dump(epoch, net, writer):
-    """ Routine for dumping info on tensor board at the end of an epoch """
-    print('=> eval on test data')
-    (test_loss, test_acc, _) = test(testloader, net, device)
-    writer.add_scalar('Loss/test', test_loss, epoch)
-    writer.add_scalar('Accuracy/test', test_acc, epoch)
+# def tb_dump(epoch, net, writer):
+#     """ Routine for dumping info on tensor board at the end of an epoch """
+#     print('=> eval on test data')
+#     (test_loss, test_acc, _) = test(testloader, net, device)
+#     writer.add_scalar('Loss/test', test_loss, epoch)
+#     writer.add_scalar('Accuracy/test', test_acc, epoch)
 
-    print('=> eval on train data')
-    (train_loss, train_acc, _) = test(trainloader, net, device)
-    writer.add_scalar('Loss/train', train_loss, epoch)
-    writer.add_scalar('Accuracy/train', train_acc, epoch)
-    print('epoch %d done\n' % (epoch))
+#     print('=> eval on train data')
+#     (train_loss, train_acc, _) = test(trainloader, net, device)
+#     writer.add_scalar('Loss/train', train_loss, epoch)
+#     writer.add_scalar('Accuracy/train', train_acc, epoch)
+#     print('epoch %d done\n' % (epoch))
 
 
 def test(testloader, net, device):
@@ -76,11 +76,11 @@ def test(testloader, net, device):
 def train_net(epochs, path_name, net, optimizer):
     """ Train the network """
     print(optimizer)
-    writer = SummaryWriter(path_name)
+    #writer = SummaryWriter(path_name)
     n_iter = 0
 
     # Dump info on the network before running any training step
-    tb_dump(0, net, writer)
+    #tb_dump(0, net, writer)
 
     for epoch in range(epochs):  # Loop over the dataset multiple times
         for i, data in enumerate(trainloader, 0):
@@ -112,23 +112,24 @@ def train_net(epochs, path_name, net, optimizer):
                 i, len(trainloader), 'Loss: %.5f | Acc: %.3f%%'
                 % (train_loss, 100.*correct/labels.size(0)))
 
-            # Print statistics every couple of mini-batches
-            if i % config_batch_statistics_freq == 0:
-                writer.add_scalar('Loss/batch', train_loss, n_iter)
-                writer.add_scalar('Accuracy/batch', train_acc, n_iter)
+            
+            # # Print statistics every couple of mini-batches
+            # if i % config_batch_statistics_freq == 0:
+            #     writer.add_scalar('Loss/batch', train_loss, n_iter)
+            #     writer.add_scalar('Accuracy/batch', train_acc, n_iter)
 
-                if config_dump_movement:
-                    new_weights = flat_weight_dump(net)
-                    movement = torch.norm(
-                        torch.add(old_weights, new_weights, alpha=-1))
-                    writer.add_scalar('Movement', movement.item(), n_iter)
+            #     if config_dump_movement:
+            #         new_weights = flat_weight_dump(net)
+            #         movement = torch.norm(
+            #             torch.add(old_weights, new_weights, alpha=-1))
+            #         writer.add_scalar('Movement', movement.item(), n_iter)
 
-                writer.flush()
-                n_iter = n_iter + 1
+            #     writer.flush()
+            #     n_iter = n_iter + 1
 
-        tb_dump(epoch+1, net, writer)
+        #tb_dump(epoch+1, net, writer)
     print('Finished Training')
-    writer.close()
+    #writer.close()
 
 
 # ################
