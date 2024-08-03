@@ -208,7 +208,7 @@ setup_ihtAGD = {
 print('new setups')
 
 #experimentName = 'differentSparsities'
-experimentName = 'gradientClipping'
+experimentName = 'checkSGDWorks'
 setups = None
 exec(f"import IHT_AGD.setups.setup_{experimentName}")
 exec(f"setups = IHT_AGD.setups.setup_{experimentName}.setups")
@@ -228,7 +228,7 @@ print(setups)
 run = neptune.init_run(api_token=api_token, project=project)
 runPipeline(setups,
             datasetChoice="MNIST",
-            epochs=20,trials=3,
+            epochs=20,trials=1,
             functionsToHelpTrack=functionsToHelpTrack,
             variablesToTrack=variablesToTrack,
             expensiveVariables=expensiveVariables,

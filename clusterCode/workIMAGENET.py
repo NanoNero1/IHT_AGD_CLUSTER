@@ -237,7 +237,7 @@ expensiveFunctions = ['getTestAccuracy']
 print('new setups')
 
 #experimentName = 'differentSparsities'
-experimentName = 'gradientClipping'
+experimentName = 'checkSGDWorks'
 setups = None
 exec(f"import IHT_AGD.setups.setup_{experimentName}")
 exec(f"setups = IHT_AGD.setups.setup_{experimentName}.setups")
