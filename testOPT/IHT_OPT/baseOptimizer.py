@@ -35,72 +35,72 @@ class myOptimizer(Optimizer):
     self.methodName="base_optimizer"
     self.setupID = None
 
-  """ Desc: logs various useful parameters -- is expensive to run on every iteration"""
-  def logging(self):
+  # """ Desc: logs various useful parameters -- is expensive to run on every iteration"""
+  # def logging(self):
 
-    print(f"==================================================================================== ITERATION: {self.iteration}")
+  #   print(f"==================================================================================== ITERATION: {self.iteration}")
 
-    # NOTE: iteration is checked here to make the code cleaner
-    if self.iteration % self.loggingInterval == 0:
-      # Functions to execute
-      for function in dir(self):
-        # All of the possible functions to perform
+  #   # NOTE: iteration is checked here to make the code cleaner
+  #   if self.iteration % self.loggingInterval == 0:
+  #     # Functions to execute
+  #     for function in dir(self):
+  #       # All of the possible functions to perform
 
 
-        if function not in self.functionsToHelpTrack:
-          continue
-        elif function in self.expensiveFunctions:
-          # TO-DO: we only care about expensive functions actually, 
-          # it's probably fine to log expensive variables on each step
-          # Do not compute expensive functions on every step
-          if self.iteration % 50 == 0:
-            pass
-          else:
-            continue
-        eval("self." + function + "()")
+  #       if function not in self.functionsToHelpTrack:
+  #         continue
+  #       elif function in self.expensiveFunctions:
+  #         # TO-DO: we only care about expensive functions actually, 
+  #         # it's probably fine to log expensive variables on each step
+  #         # Do not compute expensive functions on every step
+  #         if self.iteration % 50 == 0:
+  #           pass
+  #         else:
+  #           continue
+  #       eval("self." + function + "()")
 
-      # Variables to Log
-      for variable in dir(self):
-        if variable not in self.variablesToTrack:
-          continue
-        elif variable in self.expensiveVariables:
-          # Do not compute expensive variables on every step
-          if self.iteration % 50 == 0:
-            pass
-          else:
-            continue
-          # TO-DO: make it the same as function??
+  #     # Variables to Log
+  #     for variable in dir(self):
+  #       if variable not in self.variablesToTrack:
+  #         continue
+  #       elif variable in self.expensiveVariables:
+  #         # Do not compute expensive variables on every step
+  #         if self.iteration % 50 == 0:
+  #           pass
+  #         else:
+  #           continue
+  #         # TO-DO: make it the same as function??
         
-        self.run[f"trials/{self.trialNumber}/{self.setupID}/{variable}"].append(eval("self."+variable))
+  #       self.run[f"trials/{self.trialNumber}/{self.setupID}/{variable}"].append(eval("self."+variable))
 
-  """ Desc: an internal function that calculates the test loss on the logging step #NOTE: expensive to compute, try to make the logging interval high"""
-  def getTestAccuracy(self):
-    self.model.eval()
-    correct = 0
-    # The testing accuracy is taken over the entire dataset
-    with torch.no_grad():
-        for data, target in self.test_loader:
-            data, target = data.to(self.device), target.to(self.device)
-            output = self.model(data)
-            pred = output.argmax(dim=1, keepdim=True)
-            correct += pred.eq(target.view_as(pred)).sum().item()
-    accuracy = correct / len(self.test_loader.dataset)
-    self.testAccuracy = accuracy
+  # """ Desc: an internal function that calculates the test loss on the logging step #NOTE: expensive to compute, try to make the logging interval high"""
+  # def getTestAccuracy(self):
+  #   self.model.eval()
+  #   correct = 0
+  #   # The testing accuracy is taken over the entire dataset
+  #   with torch.no_grad():
+  #       for data, target in self.test_loader:
+  #           data, target = data.to(self.device), target.to(self.device)
+  #           output = self.model(data)
+  #           pred = output.argmax(dim=1, keepdim=True)
+  #           correct += pred.eq(target.view_as(pred)).sum().item()
+  #   accuracy = correct / len(self.test_loader.dataset)
+  #   self.testAccuracy = accuracy
 
-  def easyPrintParams(self):
-    # NOTE: the problem with this line is that it might create a NEW tensor (that won't have a gradient)
-    #toPrint = 
-    for pInd,p in enumerate(self.paramsIter()):
-      #print(f"pInd: {pInd}")
-      if pInd != 3:
-        continue
-      ##print(f"Weights: {p.data[:10]}")
-      ##print(f"Gradients: {p.grad[:10]}")
+  # def easyPrintParams(self):
+  #   # NOTE: the problem with this line is that it might create a NEW tensor (that won't have a gradient)
+  #   #toPrint = 
+  #   for pInd,p in enumerate(self.paramsIter()):
+  #     #print(f"pInd: {pInd}")
+  #     if pInd != 3:
+  #       continue
+  #     ##print(f"Weights: {p.data[:10]}")
+  #     ##print(f"Gradients: {p.grad[:10]}")
 
       
-      #print(f"smallGradients {p[9].data}")
-      #print(f"smallGradients {p[9].grad}")
-      #print(f"tryOutSwitch: {p[:10].grad} ")
+  #     #print(f"smallGradients {p[9].data}")
+  #     #print(f"smallGradients {p[9].grad}")
+  #     #print(f"tryOutSwitch: {p[:10].grad} ")
 
   """ Desc: when we add extra kwargs that aren't recognized, we add them to our variables by default"""
   def dealWithKwargs(self,keywordArgs):

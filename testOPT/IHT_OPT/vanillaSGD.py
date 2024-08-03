@@ -26,15 +26,15 @@ class vanillaSGD(myOptimizer):
   # print(y.requires_grad) #<- False
   @torch.no_grad()
   def step(self):
-    print(f"speed iteration {self.iteration}")
-    self.logging()
+    #print(f"speed iteration {self.iteration}")
+    #self.logging()
 
-    self.easyPrintParams()
+    #self.easyPrintParams()
     self.updateWeights()
-    self.easyPrintParams()
+    #self.easyPrintParams()
     self.iteration +=1
 
-    print('fixed vanilla SGD')
+    #print('fixed vanilla SGD')
     return None
 
   # Regular Gradient Descent
