@@ -117,6 +117,7 @@ def train_net(epochs, path_name, net, optimizer):
                 progress_bar(
                     i, len(trainloader), 'Loss: %.5f | Acc: %.3f%%'
                     % (train_loss, 100.*correct/labels.size(0)))
+                dummy=0
 
             
             # # Print statistics every couple of mini-batches
