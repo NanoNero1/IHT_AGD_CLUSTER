@@ -255,7 +255,7 @@ print(setups)
 run = neptune.init_run(api_token=api_token, project=project)
 runPipeline(setups,
             datasetChoice=datasetChoice,
-            epochs=20,trials=1,
+            epochs=5,trials=1,
             functionsToHelpTrack=functionsToHelpTrack,
             variablesToTrack=variablesToTrack,
             expensiveVariables=expensiveVariables,
