@@ -113,9 +113,10 @@ def train_net(epochs, path_name, net, optimizer):
             correct = (predicted == labels.to(device)).sum().item()
             train_acc = 100 * correct / labels.size(0)
 
-            progress_bar(
-                i, len(trainloader), 'Loss: %.5f | Acc: %.3f%%'
-                % (train_loss, 100.*correct/labels.size(0)))
+            if i == 0:
+                progress_bar(
+                    i, len(trainloader), 'Loss: %.5f | Acc: %.3f%%'
+                    % (train_loss, 100.*correct/labels.size(0)))
 
             
             # # Print statistics every couple of mini-batches
