@@ -39,10 +39,10 @@ class ihtSGD(vanillaSGD):
     #newSparsityIter = np.floor( (self.iteration - 100) / 80)
     #self.sparsity = min(0.9, 0.5 + 0.1*newSparsityIter)
 
-    self.logging()
-    self.easyPrintParams()
+    #self.logging()
+    #self.easyPrintParams()
     self.compressOrDecompress()
-    self.easyPrintParams()
+    #self.easyPrintParams()
     self.iteration +=1
 
   ########################################################

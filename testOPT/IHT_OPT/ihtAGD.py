@@ -14,15 +14,15 @@ class ihtAGD(vanillaAGD,ihtSGD):
     self.alpha = self.beta / self.kappa
 
   def step(self):
-    print(f"speed iteration {self.iteration}")
+    #print(f"speed iteration {self.iteration}")
 
     # Sloppy but works
     #newSparsityIter = np.floor( (self.iteration - 100) / 80)
     #self.sparsity = min(0.9, 0.5 + 0.1*newSparsityIter)
-    self.easyPrintParams()
-    self.logging()
+    #self.easyPrintParams()
+    #self.logging()
 
-    print('we got this far at least then')
+    #print('we got this far at least then')
 
     self.compressOrDecompress()
     self.iteration += 1
