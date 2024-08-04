@@ -1,6 +1,6 @@
 import torch
-from IHT_AGD.optimizers.vanillaAGD import vanillaAGD
-from IHT_AGD.optimizers.ihtSGD import ihtSGD
+from IHT_OPT.vanillaAGD import vanillaAGD
+from IHT_OPT.ihtSGD import ihtSGD
 import numpy as np
 
 ###############################################################################################################################################################
