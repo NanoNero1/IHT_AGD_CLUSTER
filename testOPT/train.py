@@ -19,12 +19,35 @@ from AdaACSA import *
 from AdaAGDplus import *
 from AdaJRGS import *
 
+############################################Dimitri's IMPORTS
 #Dimitri's Optimizers
 from IHT_OPT.baseOptimizer import myOptimizer
 from IHT_OPT.vanillaSGD import vanillaSGD
 from IHT_OPT.vanillaAGD import vanillaAGD
 from IHT_OPT.ihtAGD import ihtAGD
 from IHT_OPT.ihtSGD import ihtSGD
+
+#Neptune
+withNeptune = True
+if withNeptune:
+    try:
+        import neptune
+        print('it worked, already imported neptune')
+    except ImportError as e:
+        abort()
+    #     %pip install -U neptune
+        import neptune
+    #import neptune
+    from getpass import getpass
+
+    project="dimitri-kachler-workspace/sanity-MNIST"
+    api_token="eyJhcGlfYWRkcmVzcyI6Imh0dHBzOi8vYXBwLm5lcHR1bmUuYWkiLCJhcGlfdXJsIjoiaHR0cHM6Ly9hcHAubmVwdHVuZS5haSIsImFwaV9rZXkiOiJlNWQxNDllOS04OGY1LTRjM2EtYTczZi0xNWI0NTRmZTA1OTEifQ=="
+    
+#project = neptune.init_project(api_token=api_token, project=project)
+
+
+
+################################################################
 
 
 from loader import *
@@ -81,7 +104,7 @@ def test(testloader, net, device):
     return (loss.item() / total, 100.0*correct/total, total)
 
 # Trains the network
-def train_net(epochs, path_name, net, optimizer):
+def train_net(epochs, path_name, net, optimizer,run=None):
     """ Train the network """
     print(optimizer)
     #writer = SummaryWriter(path_name)
@@ -107,6 +130,8 @@ def train_net(epochs, path_name, net, optimizer):
             # Forward + backward + optimize
             outputs = net(inputs)
             loss = criterion(outputs, labels)
+
+            #run[f"trials/{optimizer.trialNumber}/{optimizer.setupID}/loss"].append(loss)
             loss.backward()
 
             # For AGD
@@ -117,6 +142,10 @@ def train_net(epochs, path_name, net, optimizer):
 
             # Compute statistics
             train_loss = loss.item()
+            if withNeptune:
+                run[f"trials/{0}/{"dummyLoss"}/loss"].append(train_loss)
+
+
             _, predicted = torch.max(outputs.data, 1)
             correct = (predicted == labels.to(device)).sum().item()
             train_acc = 100 * correct / labels.size(0)
@@ -261,8 +290,13 @@ path_name = config_tb_path + \
 # Initialize weights
 net.apply(weights_init_uniform_rule)
 
+if withNeptune:
+    run = neptune.init_run(api_token=api_token, project=project)
 train_net(
-    epochs=config_epochs, path_name=path_name, net=net, optimizer=optimizer)
+    epochs=config_epochs, path_name=path_name, net=net, optimizer=optimizer,run = run if withNeptune else None)
+
+if withNeptune:
+    run.stop()
 
 # Dump some info on the range of parameters after training is finished
 for param in net.parameters():
