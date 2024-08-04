@@ -22,6 +22,7 @@ from AdaJRGS import *
 #Dimitri's Optimizers
 from IHT_OPT.baseOptimizer import myOptimizer
 from IHT_OPT.vanillaSGD import vanillaSGD
+from IHT_OPT.vanillaAGD import vanillaAGD
 
 
 from loader import *
@@ -187,7 +188,13 @@ else:
 model = MODELS_MAP[config_architecture]()
 net = model.to(device)
 criterion = nn.CrossEntropyLoss()
-if config_optimizer == -1:
+
+
+if config_optimizer == -2:
+    optimizer = vanillaAGD(
+      net.parameters(), beta=300.0,kappa=10.0,
+      momentum=config_momentum, weight_decay=config_weight_decay)
+elif config_optimizer == -1:
     optimizer = vanillaSGD(
       net.parameters(), beta=config_beta,
       momentum=config_momentum, weight_decay=config_weight_decay)
