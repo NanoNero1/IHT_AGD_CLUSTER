@@ -198,7 +198,7 @@ criterion = nn.CrossEntropyLoss()
 if config_optimizer == -2:
     optimizer = vanillaAGD(
       net.parameters(), beta=300.0,kappa=10.0,
-      momentum=config_momentum, weight_decay=config_weight_decay,device=device)
+      momentum=config_momentum, weight_decay=config_weight_decay,device=device,model=net)
 elif config_optimizer == -1:
     optimizer = vanillaSGD(
       net.parameters(), beta=config_beta,
