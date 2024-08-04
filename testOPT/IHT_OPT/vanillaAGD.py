@@ -1,5 +1,5 @@
 import torch
-from IHT_AGD.optimizers.vanillaSGD import vanillaSGD
+from IHT_OPT.vanillaSGD import vanillaSGD
 import torch.nn.functional as F
 
 
