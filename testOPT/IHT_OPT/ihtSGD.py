@@ -12,10 +12,10 @@ class ihtSGD(vanillaSGD):
     self.sparsifyInterval = sparsifyInterval
 
     # Compression, Decompression and Freezing Variables
-    self.phaseLength = 80
+    self.phaseLength = 200
     self.compressionRatio = 0.5
     self.freezingRatio = 0.2
-    self.warmupLength = 200
+    self.warmupLength = 400
 
     # State Initialization
     for p in self.paramsIter():
