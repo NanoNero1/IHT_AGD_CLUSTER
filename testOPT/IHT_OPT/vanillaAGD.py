@@ -32,7 +32,7 @@ class vanillaAGD(vanillaSGD):
   def step(self):
     print("This is the fixed Accelerated Gradient Descent")
     print(f"speed iteration {self.iteration}")
-    self.logging()
+    #self.logging()
     self.updateWeights()
     self.iteration += 1
 
