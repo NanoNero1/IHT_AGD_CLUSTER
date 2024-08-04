@@ -142,13 +142,14 @@ def train_net(epochs, path_name, net, optimizer,run=None):
 
             # Compute statistics
             train_loss = loss.item()
-            if withNeptune:
-                run[f"trials/{0}/{"dummyLoss"}/loss"].append(train_loss)
 
 
             _, predicted = torch.max(outputs.data, 1)
             correct = (predicted == labels.to(device)).sum().item()
             train_acc = 100 * correct / labels.size(0)
+            if withNeptune:
+                run[f"trials/{optimizer.methodName}/{"dummyLoss"}"].append(train_loss)
+                run[f"trials/{optimizer.methodName}/{"dummyAcc"}"].append(train_acc)
 
             if i == 0:
                 print('newline')
