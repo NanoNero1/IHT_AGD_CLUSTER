@@ -86,7 +86,7 @@ class vanillaAGD(vanillaSGD):
     data,target = self.currentDataBatch
 
     newOutput = self.model(data)
-    criterion = torch.nn.CrossEntropyLoss
+    criterion = torch.nn.CrossEntropyLoss()
     loss = criterion(newOutput,target)
     #loss = F.nll_loss(newOutput, target)
     loss.backward()
