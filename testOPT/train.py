@@ -109,7 +109,7 @@ def train_net(epochs, path_name, net, optimizer):
 
             # For AGD
             if config_optimizer == -2:
-                optimizer.currentDataBatch = (inputs,labels)
+                optimizer.currentDataBatch = (inputs.clone(),labels.clone())
 
             optimizer.step()
 
