@@ -120,10 +120,12 @@ def train_net(epochs, path_name, net, optimizer):
             train_acc = 100 * correct / labels.size(0)
 
             if i == 0:
+                print('newline')
                 progress_bar(
                     i, len(trainloader), 'Loss: %.5f | Acc: %.3f%%'
                     % (train_loss, 100.*correct/labels.size(0)))
                 dummy=0
+
 
             
             # # Print statistics every couple of mini-batches
@@ -195,7 +197,11 @@ net = model.to(device)
 criterion = nn.CrossEntropyLoss()
 
 
-if config_optimizer == -2:
+if config_optimizer == -3:
+    optimizer = vanillaAGD(
+      net.parameters(), beta=300.0,kappa=10.0,sparsity=0.70,
+      momentum=config_momentum, weight_decay=config_weight_decay,device=device,model=net)
+elif config_optimizer == -2:
     optimizer = vanillaAGD(
       net.parameters(), beta=300.0,kappa=10.0,
       momentum=config_momentum, weight_decay=config_weight_decay,device=device,model=net)

@@ -30,8 +30,8 @@ class vanillaAGD(vanillaSGD):
   # NOTE: we want to turn this off?
   #@torch.no_grad - not sure if the activate it here since we calculate the gradient as nested in this function
   def step(self):
-    print("This is the fixed Accelerated Gradient Descent")
-    print(f"speed iteration {self.iteration}")
+    #print("This is the fixed Accelerated Gradient Descent")
+    #print(f"speed iteration {self.iteration}")
     #self.logging()
     self.updateWeights()
     self.iteration += 1
@@ -39,7 +39,7 @@ class vanillaAGD(vanillaSGD):
   ##############################################################################
 
   def updateWeights(self):
-    print("AGD updateWeights")
+    #print("AGD updateWeights")
     # Update z_t the according to the AGD equation in the note
     with torch.no_grad():
       for p in self.paramsIter():
@@ -80,7 +80,7 @@ class vanillaAGD(vanillaSGD):
 
         # CHECK: is the order of operations correct?
         p.data = state[iterate].clone().detach()
-    print('FIXED IHT-AGD')
+    #print('FIXED IHT-AGD')
 
     self.zero_grad()
     data,target = self.currentDataBatch
