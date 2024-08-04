@@ -86,7 +86,8 @@ class vanillaAGD(vanillaSGD):
     data,target = self.currentDataBatch
 
     newOutput = self.model(data)
-    loss = F.nll_loss(newOutput, target)
+    loss = torch.nn.CrossEntropyLoss(newOutput,target)
+    #loss = F.nll_loss(newOutput, target)
     loss.backward()
 
     if iterate == "zt":

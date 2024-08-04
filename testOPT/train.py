@@ -106,6 +106,11 @@ def train_net(epochs, path_name, net, optimizer):
             outputs = net(inputs)
             loss = criterion(outputs, labels)
             loss.backward()
+
+            # For AGD
+            if config_optimizer == -2:
+                optimizer.currentDataBatch = (data,labels)
+
             optimizer.step()
 
             # Compute statistics
