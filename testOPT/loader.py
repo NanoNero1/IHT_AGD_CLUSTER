@@ -98,7 +98,7 @@ def imagenet_loader(batch_size):
     train_set = MyDataset('train')
     test_set = MyDataset('test')
 
-    BATCH_SIZE = 64
+    BATCH_SIZE = 16
 
     train_loader = torch.utils.data.DataLoader(train_set, batch_size=BATCH_SIZE, shuffle=True)
     test_loader = torch.utils.data.DataLoader(test_set, batch_size=BATCH_SIZE)
