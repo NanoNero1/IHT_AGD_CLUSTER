@@ -1,9 +1,9 @@
 {
     "experiment_number": 993,
-    "dataset": "IMAGENET", 
+    "dataset": "CIFAR", 
     "architecture": "ResNet50", 
     "batch_size": 256, 
-    "optimizer": -2, 
+    "optimizer": -3, 
     "lr": 0.1, 
     "momentum": 0.0,
     "weight_decay": 0.0,
