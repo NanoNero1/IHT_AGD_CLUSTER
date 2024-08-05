@@ -221,8 +221,11 @@ if torch.cuda.is_available():
 # Load data
 if config_dataset == 'MNIST':
     trainloader, testloader = mnist_loader(batch_size=config_batch_size)
-else:
+elif config_dataset == 'CIFAR':
     trainloader, testloader = cifar_loader(batch_size=config_batch_size)
+elif config_dataset == 'IMAGENET':
+    trainloader, testloader = imagenet_loader(batch_size=config_batch_size)
+
 
 model = MODELS_MAP[config_architecture]()
 net = model.to(device)
