@@ -119,9 +119,6 @@ def train_net(epochs, path_name, net, optimizer,run=None):
 
     for epoch in range(epochs):  # Loop over the dataset multiple times
 
-        print(optimizer.__dict__.keys())
-        abort()
-
         epochStepCount = 0
         for i, data in enumerate(trainloader, 0):
             # Get the inputs
