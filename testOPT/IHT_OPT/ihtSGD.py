@@ -12,10 +12,11 @@ class ihtSGD(vanillaSGD):
     self.sparsifyInterval = sparsifyInterval
 
     # Compression, Decompression and Freezing Variables
-    self.phaseLength = 200
+    self.phaseLength = 400
     self.compressionRatio = 0.5
     self.freezingRatio = 0.2
     self.warmupLength = 400
+    self.startFineTune = 2000
 
     # State Initialization
     for p in self.paramsIter():
@@ -55,6 +56,11 @@ class ihtSGD(vanillaSGD):
     if self.iteration < self.warmupLength:
       ## WARMUP -- PHASE 0
       self.warmup()
+    elif self.iteration == self.startFineTune:
+      self.truncateAndFreeze()
+    elif self.iteration > self.startFineTune:
+      self.compressedStep()
+      ## FINE-TUNE
     elif howFarAlong == 0:
       ## FREEZING WEIGHTS -- PHASE 1
       self.truncateAndFreeze()
