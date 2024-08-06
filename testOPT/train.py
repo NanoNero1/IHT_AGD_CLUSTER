@@ -118,6 +118,7 @@ def train_net(epochs, path_name, net, optimizer,run=None):
     #tb_dump(0, net, writer)
 
     for epoch in range(epochs):  # Loop over the dataset multiple times
+        epochStepCount = 0
         for i, data in enumerate(trainloader, 0):
             # Get the inputs
             inputs, labels = data
@@ -162,6 +163,8 @@ def train_net(epochs, path_name, net, optimizer,run=None):
                     % (train_loss, 100.*correct/labels.size(0)))
                 dummy=0
 
+            epochStepCount = i
+
 
             
             # # Print statistics every couple of mini-batches
@@ -177,6 +180,19 @@ def train_net(epochs, path_name, net, optimizer,run=None):
 
             #     writer.flush()
             #     n_iter = n_iter + 1
+        
+        if epoch == 0:
+            run[f"trials/{optimizer.methodName}/{"epochSize"}"].append(epochStepCount)
+
+        if epoch == 20 - 1:
+            run[f"trials/{optimizer.methodName}/{"lr"}"].append(optimizer.lr)
+            optimizer.lr *= 0.1
+            run[f"trials/{optimizer.methodName}/{"lr"}"].append(optimizer.lr)
+
+
+
+
+    
 
         #tb_dump(epoch+1, net, writer)
     print('Finished Training')
