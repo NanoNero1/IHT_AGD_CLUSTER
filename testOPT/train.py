@@ -118,6 +118,10 @@ def train_net(epochs, path_name, net, optimizer,run=None):
     #tb_dump(0, net, writer)
 
     for epoch in range(epochs):  # Loop over the dataset multiple times
+
+        optimizer.__dict__.keys()
+        abort()
+
         epochStepCount = 0
         for i, data in enumerate(trainloader, 0):
             # Get the inputs
