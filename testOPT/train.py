@@ -258,7 +258,7 @@ criterion = nn.CrossEntropyLoss()
 
 if config_optimizer == -4:
     optimizer = ihtSGD(
-      net.parameters(), beta=10.0,kappa=10.0,sparsity=0.90,
+      net.parameters(), beta=10.0,kappa=10.0,sparsity=0.70,
       momentum=config_momentum, weight_decay=config_weight_decay,device=device,model=net)
 elif config_optimizer == -3:
     optimizer = ihtAGD(
