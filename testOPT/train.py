@@ -27,6 +27,10 @@ from IHT_OPT.vanillaAGD import vanillaAGD
 from IHT_OPT.ihtAGD import ihtAGD
 from IHT_OPT.ihtSGD import ihtSGD
 
+# Imagenet Model
+from torchvision.models import resnet18
+from torchvision.models import resnet50
+
 #Neptune
 withNeptune = True
 if withNeptune:
@@ -227,7 +231,10 @@ elif config_dataset == 'IMAGENET':
     trainloader, testloader = imagenet_loader(batch_size=config_batch_size)
 
 
-model = MODELS_MAP[config_architecture]()
+if config_architecture == "ImageNetRN":
+    model = resnet18().to(device)
+else:
+    model = MODELS_MAP[config_architecture]()
 net = model.to(device)
 criterion = nn.CrossEntropyLoss()
 
