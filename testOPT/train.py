@@ -185,7 +185,7 @@ def train_net(epochs, path_name, net, optimizer,run=None):
         if epoch == 0:
             run[f"trials/{optimizer.methodName}/{"epochSize"}"].append(epochStepCount)
 
-        if epoch == 30:
+        if epoch == 20:
             run[f"trials/{optimizer.methodName}/{"lr"}"].append(optimizer.param_groups[0]['lr'])
             for g in optimizer.param_groups:
                  g['lr'] *= 0.100
