@@ -186,10 +186,10 @@ def train_net(epochs, path_name, net, optimizer,run=None):
             run[f"trials/{optimizer.methodName}/{"epochSize"}"].append(epochStepCount)
 
         if epoch == 2 - 1:
-            run[f"trials/{optimizer.methodName}/{"lr"}"].append(optim.param_groups[0]['lr'])
+            run[f"trials/{optimizer.methodName}/{"lr"}"].append(optimizer.param_groups[0]['lr'])
             for g in optimizer.param_groups:
                  g['lr'] *= 0.1
-            run[f"trials/{optimizer.methodName}/{"lr"}"].append(optim.param_groups[0]['lr'])
+            run[f"trials/{optimizer.methodName}/{"lr"}"].append(optimizer.param_groups[0]['lr'])
 
 
 
