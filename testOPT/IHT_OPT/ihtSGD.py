@@ -16,7 +16,7 @@ class ihtSGD(vanillaSGD):
     self.compressionRatio = 0.5
     self.freezingRatio = 0.2
     self.warmupLength = 1000
-    self.startFineTune = 8000
+    self.startFineTune = 5000
 
     # State Initialization
     for p in self.paramsIter():
