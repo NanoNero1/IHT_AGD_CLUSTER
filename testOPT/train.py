@@ -200,7 +200,7 @@ def train_net(epochs, path_name, net, optimizer,run=None):
     
 
         #tb_dump(epoch+1, net, writer)
-    testAccuracy = test(testloader, net, device)
+    testAccuracy = float(test(testloader, net, device))
     run[f"trials/{optimizer.methodName}/{"testAccuracy"}"].append(testAccuracy)
     print('Finished Training')
     #writer.close()
