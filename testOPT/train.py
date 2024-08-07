@@ -116,7 +116,7 @@ def train_net(epochs, path_name, net, optimizer,run=None):
 
     # Dump info on the network before running any training step
     #tb_dump(0, net, writer)
-
+    #last_train_acc = 0.0
     for epoch in range(epochs):  # Loop over the dataset multiple times
 
         epochStepCount = 0
@@ -153,9 +153,12 @@ def train_net(epochs, path_name, net, optimizer,run=None):
             _, predicted = torch.max(outputs.data, 1)
             correct = (predicted == labels.to(device)).sum().item()
             train_acc = 100 * correct / labels.size(0)
+
             if withNeptune:
                 run[f"trials/{optimizer.methodName}/{"dummyLoss"}"].append(train_loss)
                 run[f"trials/{optimizer.methodName}/{"dummyAcc"}"].append(train_acc)
+
+            #last_train_acc = train_acc
 
             if i == 0:
                 print('newline')
@@ -197,6 +200,8 @@ def train_net(epochs, path_name, net, optimizer,run=None):
     
 
         #tb_dump(epoch+1, net, writer)
+    testAccuracy = test(testloader, net, device)
+    run[f"trials/{optimizer.methodName}/{"testAccuracy"}"].append(testAccuracy)
     print('Finished Training')
     #writer.close()
 
