@@ -2,10 +2,13 @@ import torch
 import torchvision
 import torchvision.transforms as transforms
 
+
 # Dimitri Imports
 import time
 from datasets import load_dataset
 from torchvision.transforms import Lambda
+import numpy as np
+from torch.utils.data.sampler import SubsetRandomSampler
 
 def mnist_loader(batch_size):
     # Preprocess input
@@ -38,9 +41,15 @@ def cifar_loader(batch_size):
     # Load
     trainset = torchvision.datasets.CIFAR10(root='./data', train=True,
                                             download=True, transform=transform_train)
-    trainloader = torch.utils.data.DataLoader(trainset, batch_size=batch_size,
-                                              shuffle=True, num_workers=2)
+    
+    ## FOR THE VALIDATION
+    ## SOURCE: https://gist.github.com/MattKleinsmith/5226a94bad5dd12ed0b871aed98cb123
+    validation_params = True
 
+    
+    trainloader = torch.utils.data.DataLoader(trainset, batch_size=batch_size,
+                                             shuffle=True, num_workers=2)
+    
     testset = torchvision.datasets.CIFAR10(root='./data', train=False,
                                            download=True, transform=transform_test)
     testloader = torch.utils.data.DataLoader(testset, batch_size=batch_size,
