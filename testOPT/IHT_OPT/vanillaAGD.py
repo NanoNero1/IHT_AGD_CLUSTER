@@ -73,6 +73,14 @@ class vanillaAGD(vanillaSGD):
 
   ##########################################
 
+  def reCopyXt(self):
+    with torch.no_grad():
+        for p in self.paramsIter():
+          state = self.state[p]
+
+          # CHECK: is the order of operations correct?
+          p.data = state['xt'].clone().detach()
+
   def getNewGrad(self,iterate):
     with torch.no_grad():
       for p in self.paramsIter():
