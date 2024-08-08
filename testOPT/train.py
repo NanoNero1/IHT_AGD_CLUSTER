@@ -85,6 +85,11 @@ def flat_weight_dump(model):
 #     writer.add_scalar('Accuracy/train', train_acc, epoch)
 #     print('epoch %d done\n' % (epoch))
 
+def print_neptune_params(run=None,optimizer=None):
+    params_to_neptune = {key: config[key] for key in ['beta','kappa','sparsity','lr','epochs']}
+    run[f"trials/{optimizer.methodName}/{"params"}"].append(params_to_neptune)
+
+
 
 def test(testloader, net, device):
     """ Routine for evaluating test error """
@@ -109,6 +114,7 @@ def test(testloader, net, device):
 
 # Trains the network
 def train_net(epochs, path_name, net, optimizer,run=None):
+    print_neptune_params(run=run,optimizer=optimizer)
     """ Train the network """
     print(optimizer)
     #writer = SummaryWriter(path_name)
@@ -238,6 +244,10 @@ config_initial_accumulator_value = config['initial_accumulator_value']
 config_beta = config['beta']
 config_eps = config['eps']
 
+config_kappa = config['kappa']
+config_sparsity = config['sparsity']
+
+
 use_cuda = torch.cuda.is_available()
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 print(device)
@@ -264,11 +274,11 @@ criterion = nn.CrossEntropyLoss()
 
 if config_optimizer == -4:
     optimizer = ihtSGD(
-      net.parameters(), beta=10.0,kappa=10.0,sparsity=0.98,
+      net.parameters(), beta=config_beta,kappa=config_kappa,sparsity=config_sparsity,
       momentum=config_momentum, weight_decay=config_weight_decay,device=device,model=net)
 elif config_optimizer == -3:
     optimizer = ihtAGD(
-      net.parameters(), beta=10.0,kappa=10.0,sparsity=0.98,
+      net.parameters(), beta=config_beta,kappa=config_kappa,sparsity=config_sparsity,
       momentum=config_momentum, weight_decay=config_weight_decay,device=device,model=net)
 elif config_optimizer == -2:
     optimizer = vanillaAGD(
