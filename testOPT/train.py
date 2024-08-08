@@ -86,7 +86,7 @@ def flat_weight_dump(model):
 #     print('epoch %d done\n' % (epoch))
 
 def print_neptune_params(run=None,optimizer=None):
-    params_to_neptune = {key: config[key] for key in ['beta','kappa','sparsity','lr','epochs']}
+    params_to_neptune = {key: config[key] for key in ['beta','kappa','sparsity','lr','epochs','dataset']}
     run[f"trials/{optimizer.methodName}/{"params"}"].append(params_to_neptune)
 
 
