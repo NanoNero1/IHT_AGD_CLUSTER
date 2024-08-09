@@ -185,7 +185,8 @@ class ihtSGD(vanillaSGD):
       # NOTE TO SELF: remember, the layer with 10 values isn't strange, it's just the bias layer
 
       # Track the per-layer sparsity with size
-      self.run[f"trials/{self.trialNumber}/{self.setupID}/{layerName}"].append(layerSparsity)
+      #self.run[f"trials/{self.trialNumber}/{self.setupID}/{layerName}"].append(layerSparsity)
+      self.run[f"trials/{self.optimizer.methodName}/sparsities/{layerName}"].append(layerSparsity)
 
     # Removing the First Zero
     print('removed the first zero')
@@ -201,3 +202,8 @@ class ihtSGD(vanillaSGD):
     self.trackSparsity = torch.mean(nonZeroWeights)
     self.trackSparsityBias = torch.mean(nonZeroBias)
     self.trackSparsityLinear = torch.mean(nonZeroLinear)
+
+    ##
+    self.run[f"trials/{self.optimizer.methodName}/sparsities/trackSparsity"].append(self.trackSparsity)
+    self.run[f"trials/{self.optimizer.methodName}/sparsities/trackSparsityBias"].append(self.trackSparsityBias)
+    self.run[f"trials/{self.optimizer.methodName}/sparsities/trackSparsityLinear"].append(self.trackSparsityLinear)

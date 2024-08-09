@@ -14,6 +14,7 @@ class ihtAGD(vanillaAGD,ihtSGD):
     self.alpha = self.beta / self.kappa
 
   def step(self):
+    self.trackingSparsity()
     #print(f"speed iteration {self.iteration}")
 
     # Sloppy but works
