@@ -340,6 +340,7 @@ net.apply(weights_init_uniform_rule)
 
 if withNeptune:
     run = neptune.init_run(api_token=api_token, project=project)
+    setattr(optimizer, 'run', run)
 train_net(
     epochs=config_epochs, path_name=path_name, net=net, optimizer=optimizer,run = run if withNeptune else None)
 
