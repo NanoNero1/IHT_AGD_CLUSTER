@@ -83,6 +83,8 @@ class ihtAGD(vanillaAGD,ihtSGD):
         #Find the new z_t
         #state['zt'] = (self.sqKappa / (self.sqKappa + 1.0) ) * (state['zt'] - (state['zt_oldGrad'] / self.beta) ) + (1.0 / (self.sqKappa + 1.0)) * state['xt']
 
+    self.sparsify(iterate='zt')
+
     # CAREFUL! this changes the parameters for the model
     self.getNewGrad('zt')
 
