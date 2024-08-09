@@ -133,12 +133,10 @@ def mnist_loader(batch_size):
 def cifar100_loader(batch_size):
 
     
-    
-    trainset = torchvision.datasets.CIFAR100(root='./data', train=True,
-                                            download=True, transform=transform_train)
+    train_data = torchvision.datasets.CIFAR100('./data', train=True, download=True)
     
     # Stick all the images together to form a 1600000 X 32 X 3 array
-    x = np.concatenate([np.asarray(trainset[i][0]) for i in range(len(trainset))])
+    x = np.concatenate([np.asarray(train_data[i][0]) for i in range(len(train_data))])
 
     # calculate the mean and std along the (0, 1) axes
     mean = np.mean(x, axis=(0, 1))/255
@@ -153,6 +151,9 @@ def cifar100_loader(batch_size):
                          transforms.Normalize(mean,std,inplace=True)])
     transform_test = transforms.Compose([transforms.ToTensor(), transforms.Normalize(mean,std)])
     
+    trainset = torchvision.datasets.CIFAR100(root='./data', train=True,
+                                            download=True, transform=transform_train)
+
     trainloader = torch.utils.data.DataLoader(trainset, batch_size=batch_size,
                                              shuffle=True, num_workers=2)
     
