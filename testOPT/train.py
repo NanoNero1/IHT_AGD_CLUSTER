@@ -263,6 +263,8 @@ elif config_dataset == 'CIFAR':
     trainloader, testloader = cifar_loader(batch_size=config_batch_size)
 elif config_dataset == 'IMAGENET':
     trainloader, testloader = imagenet_loader(batch_size=config_batch_size)
+elif config_dataset == 'CIFAR100':
+    trainloader, testloader = cifar100_loader(batch_size=config_batch_size)
 
 
 if config_architecture == "ImageNetRN":
