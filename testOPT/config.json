@@ -1,6 +1,6 @@
 {
     "experiment_number": 993,
-    "dataset": "CIFAR", 
+    "dataset": "CIFAR100", 
     "architecture": "ImageNetRN", 
     "batch_size": 256, 
     "optimizer": 0, 
