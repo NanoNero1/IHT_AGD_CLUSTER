@@ -98,6 +98,8 @@ class ihtSGD(vanillaSGD):
   def getCutOff(self,sparsity=None,iterate=None):
     if sparsity == None:
       sparsity = self.sparsity
+    #if iterate == 'zt':
+    #  sparsity = 0.0
 
     concatWeights = torch.zeros((1)).to(self.device)
     for p in self.paramsIter():

@@ -113,5 +113,53 @@ def imagenet_loader(batch_size):
     test_loader = torch.utils.data.DataLoader(test_set, batch_size=BATCH_SIZE)
 
     return train_loader, test_loader
+
+def mnist_loader(batch_size):
+    # Preprocess input
+    transform = transforms.Compose(
+        [transforms.ToTensor(),
+         transforms.Normalize((0.13, ), (0.3, ))])
+    # Load   
+    trainset = torchvision.datasets.MNIST(
+        root='./data', train=True, download=True, transform=transform)
+    trainloader = torch.utils.data.DataLoader(
+        trainset, batch_size=batch_size, shuffle=True, num_workers=2)
+    testset = torchvision.datasets.MNIST(
+        root='./data', train=False, download=True, transform=transform)
+    testloader = torch.utils.data.DataLoader(
+        testset, batch_size=batch_size, shuffle=False, num_workers=2)
+    return trainloader, testloader
+
+def cifar100_loader(batch_size):
+
+    
+    
+    trainset = torchvision.datasets.CIFAR100(root='./data', train=True,
+                                            download=True, transform=transform_train)
+    
+    # Stick all the images together to form a 1600000 X 32 X 3 array
+    x = np.concatenate([np.asarray(trainset[i][0]) for i in range(len(trainset))])
+
+    # calculate the mean and std along the (0, 1) axes
+    mean = np.mean(x, axis=(0, 1))/255
+    std = np.std(x, axis=(0, 1))/255
+    # the the mean and std
+    mean=mean.tolist()
+    std=std.tolist()
+
+    transform_train = transforms.Compose([transforms.RandomCrop(32, padding=4,padding_mode='reflect'), 
+                         transforms.RandomHorizontalFlip(), 
+                         transforms.ToTensor(), 
+                         transforms.Normalize(mean,std,inplace=True)])
+    transform_test = transforms.Compose([transforms.ToTensor(), transforms.Normalize(mean,std)])
+    
+    trainloader = torch.utils.data.DataLoader(trainset, batch_size=batch_size,
+                                             shuffle=True, num_workers=2)
+    
+    testset = torchvision.datasets.CIFAR100(root='./data', train=False,
+                                           download=True, transform=transform_test)
+    testloader = torch.utils.data.DataLoader(testset, batch_size=batch_size,
+                                             shuffle=False, num_workers=2)
+    return trainloader, testloader
     
 
