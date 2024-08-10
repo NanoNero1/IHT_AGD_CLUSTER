@@ -3,7 +3,7 @@
 #SBATCH --nodes=1             # node count
 #SBATCH --ntasks=1               # total number of tasks across all nodes
 #SBATCH --mem=32G
-#SBATCH --time=60
+#SBATCH --time=30-00:00:00
 #SBATCH --cpus-per-task=32
 #SBATCH --gpus-per-node=a100_7g.80gb:1
 
