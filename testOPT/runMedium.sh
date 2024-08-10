@@ -4,8 +4,8 @@
 #SBATCH --ntasks=1               # total number of tasks across all nodes
 ##SBATCH --mem=512G
 ##SBATCH --time=60
-##SBATCH --cpus-per-task=16
-#SBATCH --gpus-per-node=a100_7g.80gb:2
+##SBATCH --cpus-per-task=32
+#SBATCH --gpus-per-node=a100_7g.80gb:1
 
 module purge
 module load python/anaconda3
