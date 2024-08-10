@@ -2,9 +2,9 @@
 #SBATCH --job-name=myjob         # create a short name for your job
 #SBATCH --nodes=1              # node count
 #SBATCH --ntasks=1               # total number of tasks across all nodes
-#SBATCH --mem=512G
+##SBATCH --mem=512G
 #SBATCH --time=60
-#SBATCH --cpus-per-task=16
+##SBATCH --cpus-per-task=16
 #SBATCH --gpus-per-node=a100_7g.80gb:4
 
 module purge
