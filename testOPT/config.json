@@ -1,7 +1,7 @@
 {
     "experiment_number": 993,
-    "dataset": "CIFAR", 
-    "architecture": "ResNet18", 
+    "dataset": "IMAGENET", 
+    "architecture": "ImageNetRN", 
     "batch_size": 256, 
     "optimizer": -3, 
     "lr": 0.1, 
@@ -17,7 +17,7 @@
     "random_seed": 0,
 
     "initial_accumulator_value":1,
-    "beta":10.0,
+    "beta":30.0,
     "eps":0.01,
     "kappa":10.0,
     "sparsity":0.95
