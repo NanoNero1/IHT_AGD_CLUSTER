@@ -3,7 +3,7 @@
     "dataset": "MNIST", 
     "architecture": "MNIST2", 
     "batch_size": 256, 
-    "optimizer": 0, 
+    "optimizer": -3, 
     "lr": 0.1, 
     "momentum": 0.5,
     "weight_decay": 0.0,
