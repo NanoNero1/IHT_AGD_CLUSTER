@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH --job-name=myjob         # create a short name for your job
-#SBATCH --nodes=1                # node count
+#SBATCH --nodes=2               # node count
 #SBATCH --ntasks=1               # total number of tasks across all nodes
 #SBATCH --mem=512G
 #SBATCH --cpus-per-task=32
