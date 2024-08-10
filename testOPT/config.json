@@ -1,6 +1,6 @@
 {
     "experiment_number": 993,
-    "dataset": "ImageNetRN", 
+    "dataset": "IMAGENET", 
     "architecture": "ImageNetRN", 
     "batch_size": 256, 
     "optimizer": 0, 
