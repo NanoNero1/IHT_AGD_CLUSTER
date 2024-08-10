@@ -164,7 +164,7 @@ class ihtSGD(vanillaSGD):
     concatWeights = torch.zeros((1)).to(self.device)
     concatLinear = torch.zeros((1)).to(self.device)
     concatBias = torch.zeros((1)).to(self.device)
-    for layer in self.paramsIter():
+    for layerIdx,layer in enumerate(self.paramsIter()):
       inb = torch.abs(layer.data)
 
       # Total Weights
@@ -186,7 +186,7 @@ class ihtSGD(vanillaSGD):
 
       # Track the per-layer sparsity with size
       #self.run[f"trials/{self.trialNumber}/{self.setupID}/{layerName}"].append(layerSparsity)
-      self.run[f"trials/{self.methodName}/sparsities/{layerName}"].append(layerSparsity)
+      self.run[f"trials/{self.methodName}/sparsities/{layerName}-{layerIdx}"].append(layerSparsity)
 
     # Removing the First Zero
     print('removed the first zero')

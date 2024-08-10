@@ -166,12 +166,12 @@ def train_net(epochs, path_name, net, optimizer,run=None):
 
             #last_train_acc = train_acc
 
-            if i == 0:
-                print('newline')
-                progress_bar(
-                    i, len(trainloader), 'Loss: %.5f | Acc: %.3f%%'
-                    % (train_loss, 100.*correct/labels.size(0)))
-                dummy=0
+            # if i == 0:
+            #     print('newline')
+            #     progress_bar(
+            #         i, len(trainloader), 'Loss: %.5f | Acc: %.3f%%'
+            #         % (train_loss, 100.*correct/labels.size(0)))
+            #     dummy=0
 
             epochStepCount = i
 
