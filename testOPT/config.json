@@ -4,7 +4,7 @@
     "architecture": "ImageNetRN", 
     "batch_size": 256, 
     "optimizer": 0, 
-    "lr": 1.0, 
+    "lr": 0.1, 
     "momentum": 0.5,
     "weight_decay": 0.0,
     "radius": 2, 
