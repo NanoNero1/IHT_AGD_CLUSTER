@@ -1,5 +1,5 @@
 import torch
-from IHT_AGD.optimizers.ihtAGD import ihtAGD
+from IHT_OPT.ihtAGD import ihtAGD
 import numpy as np
 
 ###############################################################################################################################################################
