@@ -109,4 +109,16 @@ class ihtAGD(vanillaAGD,ihtSGD):
     self.refreeze()
     #self.refreeze('zt')
 
+  def maskedSparsify(self,iterate='xt'):
+    for p in self.paramsIter():
+      state = self.state[p]
+      oldWeight = state[f"{iterate}_oldWeight"]
+      diffWeights = p - oldWeight
+      ## and then the old cutoff?
+      ## or concat to a big file
+      
+
+
+
+
   ##########################################
