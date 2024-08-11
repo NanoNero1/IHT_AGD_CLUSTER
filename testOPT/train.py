@@ -26,6 +26,7 @@ from IHT_OPT.vanillaSGD import vanillaSGD
 from IHT_OPT.vanillaAGD import vanillaAGD
 from IHT_OPT.ihtAGD import ihtAGD
 from IHT_OPT.ihtSGD import ihtSGD
+from IHT_OPT.clipGradientIHTAGD import clipGradientIHTAGD
 
 # Imagenet Model
 from torchvision.models import resnet18
@@ -194,7 +195,7 @@ def train_net(epochs, path_name, net, optimizer,run=None):
         if epoch == 0:
             run[f"trials/{optimizer.methodName}/{"epochSize"}"].append(epochStepCount)
 
-        if epoch == 30:
+        if epoch == 5:
             run[f"trials/{optimizer.methodName}/{"lr"}"].append(optimizer.param_groups[0]['lr'])
             for g in optimizer.param_groups:
                  g['lr'] *= 0.100
@@ -274,8 +275,11 @@ else:
     model = MODELS_MAP[config_architecture]()
 net = model.to(device)
 criterion = nn.CrossEntropyLoss()
-
-if config_optimizer == -4:
+if config_optimizer == -5:
+    optimizer = clipGradientIHTAGD(
+      net.parameters(), beta=config_beta,kappa=config_kappa,sparsity=config_sparsity,
+      momentum=config_momentum, weight_decay=config_weight_decay,device=device,model=net)
+elif config_optimizer == -4:
     optimizer = ihtSGD(
       net.parameters(), beta=config_beta,kappa=config_kappa,sparsity=config_sparsity,
       momentum=config_momentum, weight_decay=config_weight_decay,device=device,model=net)

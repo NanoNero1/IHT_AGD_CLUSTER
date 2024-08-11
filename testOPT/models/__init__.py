@@ -6,6 +6,7 @@ from .mnist2 import *
 
 MODELS_MAP = {
     'MNIST2': MNIST2,
+    'MNIST2_LEAKY': MNIST2_LEAKY,
     'Linear': LinearRegression,
     'MNIST': MNIST,
     'VGG11': VGG11,
