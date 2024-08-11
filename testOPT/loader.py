@@ -109,8 +109,8 @@ def imagenet_loader(batch_size):
 
     BATCH_SIZE = 64
 
-    train_loader = torch.utils.data.DataLoader(train_set, batch_size=BATCH_SIZE, shuffle=True)
-    test_loader = torch.utils.data.DataLoader(test_set, batch_size=BATCH_SIZE)
+    train_loader = torch.utils.data.DataLoader(train_set, batch_size=BATCH_SIZE, shuffle=True,num_workers=8)
+    test_loader = torch.utils.data.DataLoader(test_set, batch_size=BATCH_SIZE,num_workers=8)
 
     return train_loader, test_loader
 
