@@ -15,7 +15,7 @@ class ihtSGD(vanillaSGD):
     self.phaseLength = 1000
     self.compressionRatio = 0.5
     self.freezingRatio = 0.2
-    self.warmupLength = 5000
+    self.warmupLength = 1000
     self.startFineTune = 9000
 
     # State Initialization

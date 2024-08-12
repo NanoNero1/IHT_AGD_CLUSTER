@@ -118,6 +118,11 @@ def test(testloader, net, device):
             total += labels.size(0)
             correct += (predicted == labels).sum().item()
 
+            #_, predicted = torch.max(outputs.data, 1)
+            #correct = (predicted == labels.to(device)).sum().item()
+            #train_acc = 100 * correct / labels.size(0)
+            #run[f"trials/{optimizer.methodName}/{"errorAcc"}"].append(train_acc)
+
             #progress_bar(
             #    batch_idx, len(testloader), 'Loss: %.5f | Acc: %.3f%% (%d/%d)'
             #    % (loss/total, 100.*correct/total, correct, total))
@@ -141,10 +146,10 @@ def train_net(epochs, path_name, net, optimizer,run=None):
         epochStepCount = 0
         for i, data in enumerate(trainloader, 0):
 
-            # if i  == 10:
-            #     final_loss,final_accuracy,final_total = test(testloader, net, device)
-            #     print(final_accuracy)
-            #     exit()
+            if i  == 300:
+                final_loss,final_accuracy,final_total = test(testloader, net, device)
+                print(final_accuracy)
+                exit()
             #     #abort()
 
             # Get the inputs
