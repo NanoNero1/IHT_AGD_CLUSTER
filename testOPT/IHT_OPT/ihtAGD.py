@@ -26,7 +26,7 @@ class ihtAGD(vanillaAGD,ihtSGD):
     #print('we got this far at least then')
 
     self.compressOrDecompress()
-    self.trackMatchingMasks(self)
+    #self.trackMatchingMasks(self)
     self.iteration += 1
 
   #def returnSparse(self):
@@ -60,7 +60,7 @@ class ihtAGD(vanillaAGD,ihtSGD):
     self.freeze()
 
     # Freeze zt
-    self.freeze(iterate='zt')
+    #self.freeze(iterate='zt')
 
     pass
 
@@ -116,7 +116,7 @@ class ihtAGD(vanillaAGD,ihtSGD):
     print('compressed step')
     self.updateWeightsTwo()
     self.refreeze()
-    self.refreeze('zt')
+    #self.refreeze('zt')
 
   def trackMatchingMasks(self):
     concatMatchMask = torch.zeros((1)).to(self.device)
