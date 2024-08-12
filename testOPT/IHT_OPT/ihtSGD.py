@@ -18,6 +18,8 @@ class ihtSGD(vanillaSGD):
     self.warmupLength = 1000
     self.startFineTune = 9000
 
+    self.areWeCompressed = False
+
     # State Initialization
     for p in self.paramsIter():
       state = self.state[p]

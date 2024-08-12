@@ -31,15 +31,18 @@ class ihtAGD(vanillaAGD,ihtSGD):
   #def returnSparse(self):
 
   def decompressed(self):
+    self.areWeCompressed = False
     print('decompressed')
     self.updateWeightsTwo()
 
   def warmup(self):
+    self.areWeCompressed = False
     print('warmup')
     self.updateWeightsTwo()
 
   # I checked this, it seems to work
   def truncateAndFreeze(self):
+    self.areWeCompressed = True
     self.updateWeightsTwo()
     print('this should work')
     # define zt
@@ -48,6 +51,7 @@ class ihtAGD(vanillaAGD,ihtSGD):
 
     # Truncate xt
     self.sparsify()
+    self.sparsify(iterate='zt')
     self.copyXT()
 
 
@@ -77,7 +81,8 @@ class ihtAGD(vanillaAGD,ihtSGD):
 
         #Then sparsify z_t+
         ## NOTE to Dim: - you sparsify here
-        self.sparsify(iterate='zt')
+        if self.areWeCompressed:
+          self.sparsify(iterate='zt')
 
         # And then we do the actual update, NOTE: zt is actually z_t+ right now
         state['zt'] = (self.sqKappa / (self.sqKappa + 1.0) ) * state['zt'] + (1.0 / (self.sqKappa + 1.0)) * state['xt']
@@ -106,6 +111,7 @@ class ihtAGD(vanillaAGD,ihtSGD):
 
 
   def compressedStep(self):
+    self.areWeCompressed = True
     print('compressed step')
     self.updateWeightsTwo()
     self.refreeze()
