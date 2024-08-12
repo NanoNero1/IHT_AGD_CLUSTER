@@ -98,14 +98,22 @@ def test(testloader, net, device):
     total = 0
     loss = 0
     with torch.no_grad():
-        for batch_idx, (images, labels) in enumerate(testloader):
-            outputs = net(images.to(device))
-            loss += criterion(outputs, labels.to(device)) * labels.size(0)
+        for batch_idx, data in enumerate(testloader):
+
+
+            # Get the inputs
+            inputs, labels = data
+            inputs = inputs.to(device)
+            labels = labels.to(device)
+
+            outputs = net(inputs)
+            huh = criterion(outputs, labels)
+            loss += criterion(outputs, labels) * labels.size(0)
             # track total loss until now, not average loss
 
             _, predicted = torch.max(outputs.data, 1)
             total += labels.size(0)
-            correct += (predicted == labels.to(device)).sum().item()
+            correct += (predicted == labels).sum().item()
 
             progress_bar(
                 batch_idx, len(testloader), 'Loss: %.5f | Acc: %.3f%% (%d/%d)'

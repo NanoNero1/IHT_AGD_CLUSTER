@@ -3,13 +3,13 @@
     "dataset": "IMAGENET", 
     "architecture": "ImageNetRN", 
     "batch_size": 256, 
-    "optimizer": -3, 
+    "optimizer": 0, 
     "lr": 0.1, 
     "momentum": 0.5,
     "weight_decay": 0.0,
     "radius": 2, 
     "projected": 1, 
-    "epochs": 10, 
+    "epochs": 1, 
     "tb_path": "./no_tb",
     "batch_statistics_freq": 100,
     "dump_movement": 0,
@@ -19,6 +19,6 @@
     "initial_accumulator_value":1,
     "beta":10.0,
     "eps":0.01,
-    "kappa":3.0,
+    "kappa":30.0,
     "sparsity":0.90
 }
