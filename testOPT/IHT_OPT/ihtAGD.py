@@ -88,6 +88,7 @@ class ihtAGD(vanillaAGD,ihtSGD):
     #self.sparsify(iterate='zt')
 
     # CAREFUL! this changes the parameters for the mode!
+    self.getNewGrad('zt')
 
     with torch.no_grad():
       for p in self.paramsIter():
