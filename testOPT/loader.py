@@ -105,7 +105,7 @@ def imagenet_loader(batch_size):
 
     # Call the class to populate variable train_set with the train data
     train_set = MyDataset('train')
-    test_set = MyDataset('val')
+    test_set = MyDataset('validation')
 
     BATCH_SIZE = 128
 
