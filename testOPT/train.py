@@ -100,10 +100,6 @@ def test(testloader, net, device):
     with torch.no_grad():
         for batch_idx, data in enumerate(testloader):
 
-            # To make test accuracy quicker
-            if batch_idx > 5:
-                continue
-
 
             # Get the inputs
             inputs, labels = data
