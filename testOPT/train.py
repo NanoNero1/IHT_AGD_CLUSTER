@@ -235,6 +235,7 @@ def train_net(epochs, path_name, net, optimizer,run=None):
     #testAccuracy = float()
     run[f"trials/{optimizer.methodName}/{"testAccuracy"}"].append(final_accuracy)
     print('Finished Training')
+
     #writer.close()
 
 
@@ -379,3 +380,5 @@ if withNeptune:
 # Dump some info on the range of parameters after training is finished
 for param in net.parameters():
     print(str(torch.min(param.data).item()) + " " + str(torch.max(param.data).item()))
+
+exit()
