@@ -107,20 +107,23 @@ def test(testloader, net, device):
             labels = labels.to(device)
 
             outputs = net(inputs)
-            huh = criterion(outputs, labels)
-            print(huh)
-            loss += criterion(outputs, labels) * labels.size(0)
+
+            #huh = criterion(outputs, labels)
+            #print(huh)
+            #loss += criterion(outputs, labels) * labels.size(0)
+
             # track total loss until now, not average loss
 
             _, predicted = torch.max(outputs.data, 1)
             total += labels.size(0)
             correct += (predicted == labels).sum().item()
 
-            progress_bar(
-                batch_idx, len(testloader), 'Loss: %.5f | Acc: %.3f%% (%d/%d)'
-                % (loss/total, 100.*correct/total, correct, total))
+            #progress_bar(
+            #    batch_idx, len(testloader), 'Loss: %.5f | Acc: %.3f%% (%d/%d)'
+            #    % (loss/total, 100.*correct/total, correct, total))
     # Return the average loss (i.e. total loss averaged by number of samples)
-    return (loss.item() / total, 100.0*correct/total, total)
+    #return (loss.item() / total, 100.0*correct/total, total)
+    return (0, 100.0*correct/total, total)
 
 # Trains the network
 def train_net(epochs, path_name, net, optimizer,run=None):
