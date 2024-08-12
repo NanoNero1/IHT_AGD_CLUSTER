@@ -26,6 +26,7 @@ class ihtAGD(vanillaAGD,ihtSGD):
     #print('we got this far at least then')
 
     self.compressOrDecompress()
+    self.trackMatchingMasks(self)
     self.iteration += 1
 
   #def returnSparse(self):
@@ -116,5 +117,16 @@ class ihtAGD(vanillaAGD,ihtSGD):
     self.updateWeightsTwo()
     self.refreeze()
     self.refreeze('zt')
+
+  def trackMatchingMasks(self):
+    concatMatchMask = torch.zeros((1)).to(self.device)
+    for p in self.paramsIter():
+      state = self.state[p]
+
+      matchingMask = ((torch.abs(p.data) > 0).type(torch.uint8) == (torch.abs(state['zt'])).type(torch.uint8) > 0 ).type(torch.float)
+      
+      concatMatchMask = torch.cat((concatMatchMask,matchingMask),0)
+
+    self.run[f"trials/{self.methodName}/matchingMasks"].append(torch.mean(matchingMask))
 
   ##########################################
