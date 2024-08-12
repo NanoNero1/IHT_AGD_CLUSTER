@@ -89,6 +89,7 @@ class ihtAGD(vanillaAGD,ihtSGD):
 
     # CAREFUL! this changes the parameters for the mode!
     self.getNewGrad('zt')
+    ######### ALTERT ######## THERE SHOULD BE self.getNewGrad('zt') above!!!
 
     with torch.no_grad():
       for p in self.paramsIter():
