@@ -214,13 +214,13 @@ def train_net(epochs, path_name, net, optimizer,run=None):
             #     writer.flush()
             #     n_iter = n_iter + 1
 
-            if i  == 2000:
-                final_loss,check_accuracy,final_total = test(testloader, net, device)
-                print(check_accuracy)
+            # if i  == 2000:
+            #     final_loss,check_accuracy,final_total = test(testloader, net, device)
+            #     print(check_accuracy)
                 
-                run[f"trials/{optimizer.methodName}/{"checkAccuracy"}"].append(check_accuracy)
-                abort()
-            #     #abort()
+            #     run[f"trials/{optimizer.methodName}/{"checkAccuracy"}"].append(check_accuracy)
+            #     abort()
+            # #     #abort()
         
         if epoch == 0:
             run[f"trials/{optimizer.methodName}/{"epochSize"}"].append(epochStepCount)
