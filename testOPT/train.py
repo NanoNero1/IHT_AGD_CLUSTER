@@ -108,6 +108,7 @@ def test(testloader, net, device):
 
             outputs = net(inputs)
             huh = criterion(outputs, labels)
+            print(huh)
             loss += criterion(outputs, labels) * labels.size(0)
             # track total loss until now, not average loss
 
