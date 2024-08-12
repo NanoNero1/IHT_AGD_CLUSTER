@@ -101,7 +101,7 @@ class ihtSGD(vanillaSGD):
     if sparsity == None:
       sparsity = self.sparsity
     if iterate == 'zt':
-      sparsity = 0.80
+      sparsity = 0.90
 
     concatWeights = torch.zeros((1)).to(self.device)
     for p in self.paramsIter():
