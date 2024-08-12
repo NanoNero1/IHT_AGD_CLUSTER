@@ -146,12 +146,6 @@ def train_net(epochs, path_name, net, optimizer,run=None):
         epochStepCount = 0
         for i, data in enumerate(trainloader, 0):
 
-            if i  == 300:
-                final_loss,final_accuracy,final_total = test(testloader, net, device)
-                print(final_accuracy)
-                exit()
-            #     #abort()
-
             # Get the inputs
             inputs, labels = data
             inputs = inputs.to(device)
@@ -215,6 +209,12 @@ def train_net(epochs, path_name, net, optimizer,run=None):
 
             #     writer.flush()
             #     n_iter = n_iter + 1
+
+            if i  == 300:
+                final_loss,final_accuracy,final_total = test(testloader, net, device)
+                print(final_accuracy)
+                exit()
+            #     #abort()
         
         if epoch == 0:
             run[f"trials/{optimizer.methodName}/{"epochSize"}"].append(epochStepCount)
@@ -224,6 +224,8 @@ def train_net(epochs, path_name, net, optimizer,run=None):
             for g in optimizer.param_groups:
                  g['lr'] *= 0.100
             run[f"trials/{optimizer.methodName}/{"lr"}"].append(optimizer.param_groups[0]['lr'])
+
+        
 
 
 
