@@ -56,10 +56,10 @@ class ihtAGD(vanillaAGD,ihtSGD):
 
 
     # Freeze xt
-    # self.freeze()
+    self.freeze()
 
     # Freeze zt
-    self.freeze(iterate='zt')
+    # self.freeze(iterate='zt')
 
     pass
 
