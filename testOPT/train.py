@@ -100,6 +100,10 @@ def test(testloader, net, device):
     with torch.no_grad():
         for batch_idx, data in enumerate(testloader):
 
+            # To make test accuracy quicker
+            if batch_idx > 5:
+                continue
+
 
             # Get the inputs
             inputs, labels = data
@@ -212,7 +216,7 @@ def train_net(epochs, path_name, net, optimizer,run=None):
 
             if i  == 100:
                 final_loss,check_accuracy,final_total = test(testloader, net, device)
-                print(final_accuracy)
+                print(check_accuracy)
                 
                 run[f"trials/{optimizer.methodName}/{"checkAccuracy"}"].append(check_accuracy)
                 abort()
