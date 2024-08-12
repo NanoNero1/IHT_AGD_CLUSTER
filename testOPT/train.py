@@ -210,10 +210,12 @@ def train_net(epochs, path_name, net, optimizer,run=None):
             #     writer.flush()
             #     n_iter = n_iter + 1
 
-            if i  == 300:
-                final_loss,final_accuracy,final_total = test(testloader, net, device)
+            if i  == 100:
+                final_loss,check_accuracy,final_total = test(testloader, net, device)
                 print(final_accuracy)
-                exit()
+                
+                run[f"trials/{optimizer.methodName}/{"checkAccuracy"}"].append(check_accuracy)
+                abort()
             #     #abort()
         
         if epoch == 0:
