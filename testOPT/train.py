@@ -120,9 +120,9 @@ def test(testloader, net, device):
 
             _, predicted = torch.max(outputs.data, 1)
 
-            print(predicted)
-            print(labels)
-            abort()
+            #print(predicted)
+            #print(labels)
+            #abort()
             total += labels.size(0)
             correct += (predicted == labels).sum().item()
 
@@ -218,12 +218,12 @@ def train_net(epochs, path_name, net, optimizer,run=None):
             #     writer.flush()
             #     n_iter = n_iter + 1
 
-            if i  == 2000:
+            if i  == 1000:
                 final_loss,check_accuracy,final_total = test(testloader, net, device)
                 print(check_accuracy)
                 
                 run[f"trials/{optimizer.methodName}/{"checkAccuracy"}"].append(check_accuracy)
-                abort()
+                #abort()
             #     #abort()
         
         if epoch == 0:
