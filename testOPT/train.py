@@ -136,6 +136,11 @@ def train_net(epochs, path_name, net, optimizer,run=None):
 
         epochStepCount = 0
         for i, data in enumerate(trainloader, 0):
+
+            if i  == 10:
+                final_loss,final_accuracy,final_total = test(testloader, net, device)
+                abort()
+
             # Get the inputs
             inputs, labels = data
             inputs = inputs.to(device)
