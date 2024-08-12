@@ -19,11 +19,11 @@ def mnist_loader(batch_size):
     trainset = torchvision.datasets.MNIST(
         root='./data', train=True, download=True, transform=transform)
     trainloader = torch.utils.data.DataLoader(
-        trainset, batch_size=batch_size, shuffle=True, num_workers=8)
+        trainset, batch_size=batch_size, shuffle=True, num_workers=2)
     testset = torchvision.datasets.MNIST(
         root='./data', train=False, download=True, transform=transform)
     testloader = torch.utils.data.DataLoader(
-        testset, batch_size=batch_size, shuffle=False, num_workers=8)
+        testset, batch_size=batch_size, shuffle=False, num_workers=2)
     return trainloader, testloader
 
 def cifar_loader(batch_size):
