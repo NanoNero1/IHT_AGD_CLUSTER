@@ -56,7 +56,7 @@ def cifar_loader(batch_size):
                                              shuffle=False, num_workers=8)
     return trainloader, testloader
 
-def imagenet_loader2(batch_size):
+def imagenet_loader(batch_size):
     # If the dataset is gated/private, make sure you have run huggingface-cli login
     timeOne = time.time()
     dataset = load_dataset("imagenet-1k")
