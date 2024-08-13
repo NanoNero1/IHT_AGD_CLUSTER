@@ -307,6 +307,9 @@ else:
     model = MODELS_MAP[config_architecture]()
 net = model.to(device)
 criterion = nn.CrossEntropyLoss()
+if config_optimizer == -6:
+    optimizer = torch.optim.Adam(net.parameters(), lr=0.001)
+    setattr(optimizer, 'methodName', 'ADAM')
 if config_optimizer == -5:
     optimizer = clipGradientIHTAGD(
       net.parameters(), beta=config_beta,kappa=config_kappa,sparsity=config_sparsity,
