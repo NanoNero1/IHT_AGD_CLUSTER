@@ -390,3 +390,7 @@ for param in net.parameters():
     print(str(torch.min(param.data).item()) + " " + str(torch.max(param.data).item()))
 
 exit()
+
+
+#kappas: 30:50:20
+#betas: 30:50:20
