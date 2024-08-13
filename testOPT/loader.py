@@ -90,11 +90,17 @@ def imagenet_loader(batch_size):
             
             # Split up the sample example into an image and label variable
             data, label = sample['image'], sample['label']
+
+            normalize = transforms.Normalize(mean=[0.485, 0.456, 0.406],
+                                    std=[0.229, 0.224, 0.225])
             
             transform = transforms.Compose([
                 transforms.Resize((256, 256)),  # Resize to size 256x256
                 Lambda(lambda x: x.convert("RGB") if x.mode != "RGB" else x),  # Convert all images to RGB format
+                transforms.CenterCrop(224),
                 transforms.ToTensor(),  # Transform image to Tensor object
+                normalize
+
             ])
             
             # Returns the transformed images and labels

@@ -52,7 +52,7 @@ class ihtAGD(vanillaAGD,ihtSGD):
 
     # Truncate xt
     self.sparsify()
-    self.sparsify(iterate='zt')
+    #self.sparsify(iterate='zt')
     self.copyXT()
 
 
