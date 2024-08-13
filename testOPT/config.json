@@ -17,8 +17,8 @@
     "random_seed": 0,
 
     "initial_accumulator_value":1,
-    "beta":10.0,
+    "beta":20.0,
     "eps":0.01,
     "kappa":20.0,
-    "sparsity":0.95
+    "sparsity":0.90
 }
