@@ -12,11 +12,11 @@ class ihtSGD(vanillaSGD):
     self.sparsifyInterval = sparsifyInterval
 
     # Compression, Decompression and Freezing Variables
-    self.phaseLength = 5000
+    self.phaseLength = 10000
     self.compressionRatio = 0.5
     self.freezingRatio = 0.2
-    self.warmupLength = 10000
-    self.startFineTune = 90000
+    self.warmupLength = 30000
+    self.startFineTune = 150000
 
     self.areWeCompressed = False
 
