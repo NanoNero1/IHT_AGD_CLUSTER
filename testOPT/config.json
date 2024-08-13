@@ -19,6 +19,6 @@
     "initial_accumulator_value":1,
     "beta":30.0,
     "eps":0.01,
-    "kappa":50.0,
+    "kappa":20.0,
     "sparsity":0.95
 }
