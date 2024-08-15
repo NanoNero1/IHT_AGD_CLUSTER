@@ -4,7 +4,7 @@
     "architecture": "CIFAR100RN", 
     "batch_size": 256, 
     "optimizer": 0, 
-    "lr": 0.3, 
+    "lr": 0.001, 
     "momentum": 0.9,
     "weight_decay": 0.0005,
     "radius": 2, 
