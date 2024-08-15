@@ -215,7 +215,7 @@ def train_net(epochs, path_name, net, optimizer,run=None):
             #     writer.flush()
             #     n_iter = n_iter + 1
 
-            if i  == 100:
+            if i  == 20:
                 final_loss,check_accuracy,final_total = test(testloader, net, device)
                 print(check_accuracy)
                 
