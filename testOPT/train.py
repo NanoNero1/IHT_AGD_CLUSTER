@@ -310,6 +310,7 @@ elif config_architecture == "CIFAR100RN":
     abort()
 else:
     model = MODELS_MAP[config_architecture]()
+    abort()
 net = model.to(device)
 criterion = nn.CrossEntropyLoss()
 if config_optimizer == -6:
