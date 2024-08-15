@@ -1,4 +1,7 @@
-## SOURCE: https://github.com/bmsookim/wide-resnet.pytorch/blob/master/networks/wide_resnet.py
+"""
+Code credit: https://github.com/meliketoy/wide-resnet.pytorch/blob/master/networks/wide_resnet.py
+"""
+
 import torch
 import torch.nn as nn
 import torch.nn.init as init
