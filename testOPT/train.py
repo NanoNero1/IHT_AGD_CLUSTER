@@ -306,7 +306,7 @@ elif config_dataset == 'CIFAR100':
 if config_architecture == "ImageNetRN":
     model = resnet50()
 elif config_architecture == "CIFAR100RN":
-    model = torch.hub.load('pytorch/vision:v0.10.0', 'wide_resnet28_10', pretrained=False)
+    model = torch.hub.load('pytorch/vision:v0.10.0', 'wide_resnet50_2', pretrained=False)
     #model = resnet18()
     #model.fc.register_forward_hook(lambda m, inp, out: F.dropout(out, p=0.2, training=m.training))
     print("this should activate")
