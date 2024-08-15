@@ -230,7 +230,7 @@ def train_net(epochs, path_name, net, optimizer,run=None):
         if epoch in [60,120,160]:
             run[f"trials/{optimizer.methodName}/{"lr"}"].append(optimizer.param_groups[0]['lr'])
             for g in optimizer.param_groups:
-                 g['lr'] *= 0.500
+                 g['lr'] *= 0.200
             run[f"trials/{optimizer.methodName}/{"lr"}"].append(optimizer.param_groups[0]['lr'])
 
         
@@ -306,7 +306,7 @@ elif config_dataset == 'CIFAR100':
 if config_architecture == "ImageNetRN":
     model = resnet50().to(device)
 elif config_architecture == "CIFAR100RN":
-    model = resnet18().to(device)
+    model = resnet18(pretrained=True).to(device)
 else:
     model = MODELS_MAP[config_architecture]()
 net = model.to(device)
