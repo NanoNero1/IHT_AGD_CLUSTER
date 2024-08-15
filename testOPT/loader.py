@@ -138,7 +138,7 @@ def mnist_loader(batch_size):
 
 def cifar100_loader(batch_size):
 
-    BATCH_SIZE = 64
+    BATCH_SIZE = 32
 
     
     train_data = torchvision.datasets.CIFAR100('./data', train=True, download=True)
