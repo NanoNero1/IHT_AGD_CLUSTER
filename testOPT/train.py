@@ -307,6 +307,7 @@ if config_architecture == "ImageNetRN":
     model = resnet50().to(device)
 elif config_architecture == "CIFAR100RN":
     model = resnet18(pretrained=True).to(device)
+    abort()
 else:
     model = MODELS_MAP[config_architecture]()
 net = model.to(device)
