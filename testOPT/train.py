@@ -230,7 +230,7 @@ def train_net(epochs, path_name, net, optimizer,run=None):
         if epoch in [40,80,120]:
             run[f"trials/{optimizer.methodName}/{"lr"}"].append(optimizer.param_groups[0]['lr'])
             for g in optimizer.param_groups:
-                 g['lr'] *= 0.200
+                 g['lr'] *= 0.500
             run[f"trials/{optimizer.methodName}/{"lr"}"].append(optimizer.param_groups[0]['lr'])
 
         
