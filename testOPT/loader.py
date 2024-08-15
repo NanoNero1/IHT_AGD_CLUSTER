@@ -136,9 +136,9 @@ def mnist_loader(batch_size):
         testset, batch_size=batch_size, shuffle=False, num_workers=8)
     return trainloader, testloader
 
-def cifar100_loader(b_s):
+def cifar100_loader(batch_size):
 
-    batch_size = 128
+    BATCH_SIZE = 128
 
     
     train_data = torchvision.datasets.CIFAR100('./data', train=True, download=True)
@@ -162,12 +162,12 @@ def cifar100_loader(b_s):
     trainset = torchvision.datasets.CIFAR100(root='./data', train=True,
                                             download=True, transform=transform_train)
 
-    trainloader = torch.utils.data.DataLoader(trainset, batch_size=batch_size,
+    trainloader = torch.utils.data.DataLoader(trainset, batch_size=BATCH_SIZE,
                                              shuffle=True, num_workers=8)
     
     testset = torchvision.datasets.CIFAR100(root='./data', train=False,
                                            download=True, transform=transform_test)
-    testloader = torch.utils.data.DataLoader(testset, batch_size=batch_size,
+    testloader = torch.utils.data.DataLoader(testset, batch_size=BATCH_SIZE,
                                              shuffle=False, num_workers=8)
     return trainloader, testloader
     
