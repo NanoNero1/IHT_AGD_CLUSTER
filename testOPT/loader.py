@@ -138,7 +138,7 @@ def mnist_loader(batch_size):
 
 def cifar100_loader(batch_size):
 
-    BATCH_SIZE = 128
+    BATCH_SIZE = 64
 
     
     train_data = torchvision.datasets.CIFAR100('./data', train=True, download=True)
@@ -155,6 +155,7 @@ def cifar100_loader(batch_size):
 
     transform_train = transforms.Compose([transforms.RandomCrop(32, padding=4,padding_mode='reflect'), 
                          transforms.RandomHorizontalFlip(), 
+                         transforms.RandomRotation(15),
                          transforms.ToTensor(), 
                          transforms.Normalize(mean,std,inplace=True)])
     transform_test = transforms.Compose([transforms.ToTensor(), transforms.Normalize(mean,std)])
