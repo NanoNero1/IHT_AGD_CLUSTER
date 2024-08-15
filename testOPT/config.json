@@ -3,7 +3,7 @@
     "dataset": "CIFAR", 
     "architecture": "CIFAR100RN", 
     "batch_size": 256, 
-    "optimizer": -4, 
+    "optimizer": -3, 
     "lr": 0.01, 
     "momentum": 0.9,
     "weight_decay": 0.0001,
