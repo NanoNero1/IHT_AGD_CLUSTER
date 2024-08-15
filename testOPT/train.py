@@ -304,10 +304,11 @@ elif config_dataset == 'CIFAR100':
 
 
 if config_architecture == "ImageNetRN":
-    model = resnet50().to(device)
+    model = resnet50()
 elif config_architecture == "CIFAR100RN":
-    model = resnet18(pretrained=True).to(device)
-    abort()
+    model = resnet18()
+    model.fc.register_forward_hook(lambda m, inp, out: F.dropout(out, p=0.5, training=m.training))
+    print("this should activate")
 else:
     model = MODELS_MAP[config_architecture]()
 net = model.to(device)
