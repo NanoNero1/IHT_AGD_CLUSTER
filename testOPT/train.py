@@ -381,7 +381,7 @@ path_name = config_tb_path + \
     str(config_experiment_number) + "_" + str(optimizer)
 
 # Initialize weights
-net.apply(weights_init_uniform_rule)
+#net.apply(weights_init_uniform_rule)
 
 if withNeptune:
     run = neptune.init_run(api_token=api_token, project=project)
