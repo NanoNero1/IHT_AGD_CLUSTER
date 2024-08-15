@@ -1,9 +1,9 @@
 {
     "experiment_number": 993,
-    "dataset": "CIFAR100", 
-    "architecture": "CIFAR100RN", 
+    "dataset": "MNIST", 
+    "architecture": "MNIST2", 
     "batch_size": 256, 
-    "optimizer": 0, 
+    "optimizer": 3, 
     "lr": 0.001, 
     "momentum": 0.9,
     "weight_decay": 0.0005,
@@ -20,5 +20,5 @@
     "beta":10.0,
     "eps":0.01,
     "kappa":10.0,
-    "sparsity":0.80
+    "sparsity":0.99
 }
