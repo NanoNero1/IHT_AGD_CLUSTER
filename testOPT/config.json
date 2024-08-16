@@ -2,7 +2,7 @@
     "experiment_number": 993,
     "dataset": "MNIST", 
     "architecture": "MNIST2_LEAKY", 
-    "batch_size": 256, 
+    "batch_size": 64, 
     "optimizer": -3, 
     "lr": 0.001, 
     "momentum": 0.9,
