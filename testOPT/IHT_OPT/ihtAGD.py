@@ -152,7 +152,7 @@ class ihtAGD(vanillaAGD,ihtSGD):
       for p in self.paramsIter():
         state = self.state[p]
         if iterate == None:
-          print("!!!!!!!!!!! this should sparsify the params")
+          #print("!!!!!!!!!!! this should sparsify the params")
           p.data[torch.abs(p) * torch.log(p.size()) <= weightedCutoff] = 0.0
         else:
           # NOTE: torch.abs(p) is wrong, maybe that's the bug
