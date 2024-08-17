@@ -233,6 +233,8 @@ def train_net(epochs, path_name, net, optimizer,run=None):
                  g['lr'] *= 0.200
             run[f"trials/{optimizer.methodName}/{"lr"}"].append(optimizer.param_groups[0]['lr'])
 
+        optimizer.iteration += 1
+
         
 
 
@@ -399,8 +401,18 @@ if withNeptune:
 for param in net.parameters():
     print(str(torch.min(param.data).item()) + " " + str(torch.max(param.data).item()))
 
-exit()
+#exit()
 
 
 #kappas: 30:50:20
 #betas: 30:50:20
+
+def top5(epochs,path_name, net, optimizer,run):
+    
+    # it has to be 5 x testlenght?
+    #testSize = testloader.samples?
+    topFivePredictions = torch.zeros(5,)
+
+    for trialIdx in range(5):
+        train_net(epochs=config_epochs, path_name=path_name, net=net, optimizer=optimizer,run = run if withNeptune else None)
+

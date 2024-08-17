@@ -27,7 +27,7 @@ class ihtAGD(vanillaAGD,ihtSGD):
 
     self.compressOrDecompress()
     #self.trackMatchingMasks(self)
-    self.iteration += 1
+    #self.iteration += 1
 
   #def returnSparse(self):
 
@@ -128,5 +128,45 @@ class ihtAGD(vanillaAGD,ihtSGD):
       concatMatchMask = torch.cat((concatMatchMask,matchingMask),0)
 
     self.run[f"trials/{self.methodName}/matchingMasks"].append(torch.mean(matchingMask))
+
+
+  def weightedSparsify(self,iterate):
+    weightedWeights = torch.zeros((1)).to(self.device)
+    with torch.no_grad():
+      for p in self.paramsIter():
+        if iterate == None:
+          layer = p.data
+        else:
+          state = self.state[p]
+          layer = state[iterate]
+
+          weightedLayer = torch.flatten(torch.abs(layer) * torch.log(layer.size()))
+          weightedWeights = torch.cat((weightedWeights,weightedLayer),0)
+      
+      topK = int(len(weightedWeights)*(1-self.sparsity))
+
+      # All the top-k values are sorted in order, we take the last one as the cutoff
+      vals, bestI = torch.topk(torch.abs(weightedWeights),topK,dim=0)
+      weightedCutoff = vals[-1]
+
+      for p in self.paramsIter():
+        state = self.state[p]
+        if iterate == None:
+          print("!!!!!!!!!!! this should sparsify the params")
+          p.data[torch.abs(p) * torch.log(p.size()) <= weightedCutoff] = 0.0
+        else:
+          # NOTE: torch.abs(p) is wrong, maybe that's the bug
+          (state[iterate])[torch.abs(state[iterate]) * torch.log(state[iterate].size()) <= weightedCutoff] = 0.0
+
+
+
+
+    
+
+    
+
+
+
+
 
   ##########################################
