@@ -5,7 +5,7 @@
     "batch_size": 64, 
     "optimizer": -4, 
     "lr": 0.01, 
-    "momentum": 0.9,
+    "momentum": 0.09,
     "weight_decay": 0.0005,
     "radius": 2, 
     "projected": 1, 
