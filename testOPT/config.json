@@ -5,7 +5,7 @@
     "batch_size": 64, 
     "optimizer": -4, 
     "lr": 0.01, 
-    "momentum": 0.009,
+    "momentum": 0.9,
     "weight_decay": 0.0005,
     "radius": 2, 
     "projected": 1, 
@@ -20,5 +20,5 @@
     "beta":100.0,
     "eps":0.01,
     "kappa":100.0,
-    "sparsity":0.99
+    "sparsity":0.95
 }
