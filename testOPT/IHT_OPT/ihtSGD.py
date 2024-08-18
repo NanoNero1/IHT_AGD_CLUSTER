@@ -124,7 +124,7 @@ class ihtSGD(vanillaSGD):
       with torch.no_grad():
         for p in self.paramsIter():
           state = self.state[p]
-          state['xt_gradient'] = (p.grad).clone()
+          state['xt_gradient'] = (p.grad).detach().clone()
         
 
   def getCutOff(self,sparsity=None,iterate=None):
