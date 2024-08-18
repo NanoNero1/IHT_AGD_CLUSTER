@@ -31,11 +31,15 @@ class vanillaSGD(myOptimizer):
 
     #self.easyPrintParams()
     self.updateWeights()
+    self.copyGradient()
     #self.easyPrintParams()
     self.iteration +=1
 
     #print('fixed vanilla SGD')
     return None
+  
+  def copyGradient(self):
+    abort()
 
   # Regular Gradient Descent
   def updateWeights(self,**kwargs):
