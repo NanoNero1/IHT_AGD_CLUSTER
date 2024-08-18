@@ -31,7 +31,6 @@ class vanillaSGD(myOptimizer):
 
     #self.easyPrintParams()
     self.updateWeights()
-    self.copyGradient()
     #self.easyPrintParams()
     self.iteration +=1
 

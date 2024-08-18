@@ -47,6 +47,7 @@ class ihtSGD(vanillaSGD):
     #self.logging()
     #self.easyPrintParams()
     self.compressOrDecompress()
+    
     #self.easyPrintParams()
     #self.iteration +=1
 
@@ -93,21 +94,27 @@ class ihtSGD(vanillaSGD):
   def warmup(self):
     print('warmup')
     self.updateWeights()
+    self.copyGradient()
 
   def truncateAndFreeze(self):
     print('truncateAndFreeze')
     self.updateWeights()
+    self.copyGradient()
+
     self.sparsify()
     self.freeze()
 
   def compressedStep(self):
     print('compressed step')
     self.updateWeights()
+    self.copyGradient()
+
     self.refreeze()
 
   def decompressed(self):
     print('decompressed')
     self.updateWeights()
+    self.copyGradient()
 
   ### UTILITY FUNCTIONS ######################################################################################
 
