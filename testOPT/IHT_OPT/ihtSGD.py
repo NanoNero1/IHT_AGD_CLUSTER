@@ -15,7 +15,7 @@ class ihtSGD(vanillaSGD):
     self.phaseLength = 4
     self.compressionRatio = 0.5
     self.freezingRatio = 0.2
-    self.warmupLength = 2
+    self.warmupLength = 4
     self.startFineTune = 16
 
     self.areWeCompressed = False
@@ -60,7 +60,7 @@ class ihtSGD(vanillaSGD):
       ## WARMUP -- PHASE 0
       self.warmup()
       self.notFrozenYet = True
-      
+
     elif self.iteration >= self.startFineTune:
 
       if self.notFrozenYet == True:
