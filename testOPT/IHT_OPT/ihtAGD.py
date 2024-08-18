@@ -82,8 +82,8 @@ class ihtAGD(vanillaAGD,ihtSGD):
 
         #Then sparsify z_t+
         ## NOTE to Dim: - you sparsify here
-        if self.areWeCompressed:
-          self.sparsify(iterate='zt')
+        #if self.areWeCompressed:
+        #  self.sparsify(iterate='zt')
 
         # And then we do the actual update, NOTE: zt is actually z_t+ right now
         state['zt'] = (self.sqKappa / (self.sqKappa + 1.0) ) * state['zt'] + (1.0 / (self.sqKappa + 1.0)) * state['xt']
