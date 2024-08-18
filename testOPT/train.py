@@ -228,7 +228,7 @@ def train_net(epochs, path_name, net, optimizer,run=None):
 
         #if (epoch % 5) + 1 == 0:
         #if epoch in [60,120,160]:
-        if epoch in [5,10,15]:
+        if epoch in [6,10,14]:
             optimizer.beta *= 5.0
             run[f"trials/{optimizer.methodName}/{"lr"}"].append(optimizer.param_groups[0]['lr'])
             for g in optimizer.param_groups:

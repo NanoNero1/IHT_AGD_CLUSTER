@@ -52,7 +52,7 @@ class ihtSGD(vanillaSGD):
   ########################################################
 
   def compressOrDecompress(self):
-    howFarAlong = ((self.iteration - self.warmupLength) + 1) % self.phaseLength
+    howFarAlong = ((self.iteration - self.warmupLength) % self.phaseLength) + 1
     print(f"HowFarAlong: {howFarAlong} / {self.phaseLength}")
     print(f"Iteration: {self.iteration}")
 
@@ -81,7 +81,7 @@ class ihtSGD(vanillaSGD):
         ## COMPRESSED -- PHASE 2
         self.compressedStep()
 
-    elif howFarAlong >= self.phaseLength * self.compressionRatio:
+    elif howFarAlong > self.phaseLength * self.compressionRatio:
       ## DECOMPRESS -- PHASE 3
       self.decompressed()
       self.notFrozenYet = True
