@@ -81,7 +81,7 @@ class ihtSGD(vanillaSGD):
         ## COMPRESSED -- PHASE 2
         self.compressedStep()
 
-    elif howFarAlong > self.phaseLength * self.compressionRatio:
+    elif howFarAlong >= self.phaseLength * self.compressionRatio:
       ## DECOMPRESS -- PHASE 3
       self.decompressed()
       self.notFrozenYet = True
