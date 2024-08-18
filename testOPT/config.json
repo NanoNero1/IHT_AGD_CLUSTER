@@ -1,8 +1,8 @@
 {
     "experiment_number": 993,
-    "dataset": "CIFAR", 
-    "architecture": "ResNet18", 
-    "batch_size": 256, 
+    "dataset": "MNIST", 
+    "architecture": "MNIST2", 
+    "batch_size": 64, 
     "optimizer": -3, 
     "lr": 0.01, 
     "momentum": 0.9,
@@ -20,5 +20,5 @@
     "beta":10.0,
     "eps":0.01,
     "kappa":10.0,
-    "sparsity":0.95
+    "sparsity":0.99
 }
