@@ -42,6 +42,7 @@ class vanillaSGD(myOptimizer):
     #print("SGD updateWeights")
     # NOTE: unfortunately we do need the self keyword because we are using class instances
     for p in self.paramsIter():
+        state = self.state[p]
         # NOTE TO FUTURE DIMITRI: you need to add an underscore else this is considered as an operation that returns something (I think)
         #p.add_(  (-1.0 / self.beta) * p.grad / pow(5, np.floor(self.iteration / 360))  )
-        p.add_(  (-1.0 / self.beta) * p.grad )
+        p.add_(  (-1.0 / self.beta) * p.grad - state['xt_gradient'] * self.momentum )

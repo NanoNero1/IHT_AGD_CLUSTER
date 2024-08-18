@@ -25,6 +25,7 @@ class ihtSGD(vanillaSGD):
     for p in self.paramsIter():
       state = self.state[p]
       state['xt_frozen'] = torch.ones_like(p)
+      state['xt_gradient'] = torch.zeros_like(p)
 
     self.methodName = "iht_SGD"
 
@@ -109,6 +110,12 @@ class ihtSGD(vanillaSGD):
     self.updateWeights()
 
   ### UTILITY FUNCTIONS ######################################################################################
+
+  def copyGradient(self):
+    for p in self.paramsIter():
+      state = self.state[p]
+      state['xt_gradient'] = (p.grad).clone()
+      
 
   def getCutOff(self,sparsity=None,iterate=None):
     if sparsity == None:
