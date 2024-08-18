@@ -48,4 +48,4 @@ class vanillaSGD(myOptimizer):
         state = self.state[p]
         # NOTE TO FUTURE DIMITRI: you need to add an underscore else this is considered as an operation that returns something (I think)
         #p.add_(  (-1.0 / self.beta) * p.grad / pow(5, np.floor(self.iteration / 360))  )
-        p.add_(  (-1.0 / self.beta) * p.grad - state['xt_gradient'] * self.momentum )
+        p.add_(  (-1.0 / self.beta) * p.grad - state['xt_gradient'] * self.momentum / self.beta )
