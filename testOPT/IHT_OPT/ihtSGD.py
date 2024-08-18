@@ -121,9 +121,10 @@ class ihtSGD(vanillaSGD):
   def copyGradient(self):
     #warmup
     if self.iteration > 2:
-      for p in self.paramsIter():
-        state = self.state[p]
-        state['xt_gradient'] = (p.grad).clone()
+      with torch.no_grad():
+        for p in self.paramsIter():
+          state = self.state[p]
+          state['xt_gradient'] = (p.grad).clone()
         
 
   def getCutOff(self,sparsity=None,iterate=None):
