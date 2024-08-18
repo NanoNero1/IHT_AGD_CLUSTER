@@ -120,7 +120,7 @@ class ihtSGD(vanillaSGD):
 
   def copyGradient(self):
     #warmup
-    if self.iteration > 2:
+    if True:
       with torch.no_grad():
         for p in self.paramsIter():
           state = self.state[p]
