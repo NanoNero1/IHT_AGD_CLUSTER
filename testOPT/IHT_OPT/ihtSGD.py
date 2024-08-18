@@ -119,10 +119,12 @@ class ihtSGD(vanillaSGD):
   ### UTILITY FUNCTIONS ######################################################################################
 
   def copyGradient(self):
-    for p in self.paramsIter():
-      state = self.state[p]
-      state['xt_gradient'] = (p.grad).clone()
-      
+    #warmup
+    if self.iteration > 2:
+      for p in self.paramsIter():
+        state = self.state[p]
+        state['xt_gradient'] = (p.grad).clone()
+        
 
   def getCutOff(self,sparsity=None,iterate=None):
     if sparsity == None:
