@@ -19,6 +19,7 @@ class ihtSGD(vanillaSGD):
     self.startFineTune = 16
 
     self.areWeCompressed = False
+    self.notFrozenYet = True
 
     # State Initialization
     for p in self.paramsIter():
@@ -58,20 +59,32 @@ class ihtSGD(vanillaSGD):
     if self.iteration < self.warmupLength:
       ## WARMUP -- PHASE 0
       self.warmup()
-    elif self.iteration == self.startFineTune:
-      self.truncateAndFreeze()
-    elif self.iteration > self.startFineTune:
-      self.compressedStep()
-      ## FINE-TUNE
-    elif howFarAlong == 0:
-      ## FREEZING WEIGHTS -- PHASE 1
-      self.truncateAndFreeze()
+      self.notFrozenYet = True
+      
+    elif self.iteration >= self.startFineTune:
+
+      if self.notFrozenYet == True:
+        ## FREEZING WEIGHTS -- PHASE 1
+        self.truncateAndFreeze()
+        self.notFrozenYet = False
+      else:
+        self.compressedStep()
+        ## FINE-TUNE
     elif howFarAlong <= self.phaseLength * self.compressionRatio:
-      ## COMPRESSED -- PHASE 2
-      self.compressedStep()
+
+      # before it was frozen for an entire epoch
+      if self.notFrozenYet == True:
+        ## FREEZING WEIGHTS -- PHASE 1
+        self.truncateAndFreeze()
+        self.notFrozenYet = False
+      else:
+        ## COMPRESSED -- PHASE 2
+        self.compressedStep()
+
     elif howFarAlong > self.phaseLength * self.compressionRatio:
       ## DECOMPRESS -- PHASE 3
       self.decompressed()
+      self.notFrozenYet = True
     else:
       print("Error, iteration logic is incorrect")
 
