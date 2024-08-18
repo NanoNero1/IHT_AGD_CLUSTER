@@ -2,7 +2,7 @@
     "experiment_number": 993,
     "dataset": "MNIST", 
     "architecture": "MNIST2", 
-    "batch_size": 16, 
+    "batch_size": 64, 
     "optimizer": 0, 
     "lr": 0.01, 
     "momentum": 0.9,
