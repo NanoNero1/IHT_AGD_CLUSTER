@@ -1,15 +1,15 @@
 {
     "experiment_number": 993,
-    "dataset": "MNIST", 
-    "architecture": "MNIST2", 
+    "dataset": "CIFAR", 
+    "architecture": "ResNet18", 
     "batch_size": 64, 
-    "optimizer": -3, 
+    "optimizer": 0, 
     "lr": 0.01, 
     "momentum": 0.9,
     "weight_decay": 0.0005,
     "radius": 2, 
     "projected": 1, 
-    "epochs": 20, 
+    "epochs": 60, 
     "tb_path": "./no_tb",
     "batch_statistics_freq": 100,
     "dump_movement": 0,
@@ -17,8 +17,8 @@
     "random_seed": 0,
 
     "initial_accumulator_value":1,
-    "beta":30.0,
+    "beta":10.0,
     "eps":0.01,
     "kappa":10.0,
-    "sparsity":0.99
+    "sparsity":0.95
 }
