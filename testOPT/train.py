@@ -344,6 +344,8 @@ elif config_optimizer == 0:
       net.parameters(), lr=config_lr,
       momentum=config_momentum, weight_decay=config_weight_decay)
     setattr(optimizer, 'methodName', 'nativeSGD')
+    setattr(optimizer, 'iteration', 0)
+    setattr(optimizer, 'beta', 1.0)
 elif config_optimizer == 1:
     optimizer = optim.Adagrad(
       net.parameters(), lr=config_lr, weight_decay=config_weight_decay)
