@@ -52,7 +52,7 @@ class ihtSGD(vanillaSGD):
   ########################################################
 
   def compressOrDecompress(self):
-    howFarAlong = (self.iteration - self.warmupLength) % self.phaseLength
+    howFarAlong = ((self.iteration - self.warmupLength) + 1) % self.phaseLength
     print(f"HowFarAlong: {howFarAlong} / {self.phaseLength}")
     print(f"Iteration: {self.iteration}")
 
