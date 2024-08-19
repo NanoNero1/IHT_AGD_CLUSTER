@@ -185,7 +185,7 @@ def train_net(epochs, path_name, net, optimizer,run=None):
 
             _, pred = outputs.topk(5, 1, largest=True, sorted=True)
 
-            label = label.view(label.size(0), -1).expand_as(pred)
+            label = label.view(labels.size(0), -1).expand_as(pred)
             correct = pred.eq(label).float()
 
             #compute top 5
