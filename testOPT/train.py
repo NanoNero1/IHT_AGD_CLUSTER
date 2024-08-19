@@ -182,7 +182,7 @@ def train_net(epochs, path_name, net, optimizer,run=None):
             #if config_dump_movement and (i % config_batch_statistics_freq == 0):
             #    old_weights = flat_weight_dump(net)
 
-            optimizer.trackingSparsity
+            optimizer.trackingSparsity()
 
             # Forward + backward + optimize
             outputs = net(inputs)
