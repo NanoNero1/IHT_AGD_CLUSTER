@@ -139,7 +139,7 @@ def test(testloader, net, device):
             total += labels.size(0)
             #correct += (predicted == labels).sum().item()
 
-            topFive_acc = 100 * correct_5 / labels.size(0)
+            
 
             #_, predicted = torch.max(outputs.data, 1)
             #correct = (predicted == labels.to(device)).sum().item()
@@ -151,7 +151,8 @@ def test(testloader, net, device):
             #    % (loss/total, 100.*correct/total, correct, total))
     # Return the average loss (i.e. total loss averaged by number of samples)
     #return (loss.item() / total, 100.0*correct/total, total)
-    return (0, 100*correct_1/total, total,topFive_acc)
+    #topFive_acc =
+    return (0, 100*correct_1/total, total, 100 * correct_5 / total)
 
 # Trains the network
 def train_net(epochs, path_name, net, optimizer,run=None):
