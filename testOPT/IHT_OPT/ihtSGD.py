@@ -219,7 +219,7 @@ class ihtSGD(vanillaSGD):
 
       # Track the per-layer sparsity with size
       #self.run[f"trials/{self.trialNumber}/{self.setupID}/{layerName}"].append(layerSparsity)
-      self.run[f"trials/{self.methodName}/sparsities/{layerName}-{layerIdx}{"B" if len(layer.data.shape) < 2 else "L"}"].append(layerSparsity)
+      #self.run[f"trials/{self.methodName}/sparsities/{layerName}-{layerIdx}{"B" if len(layer.data.shape) < 2 else "L"}"].append(layerSparsity)
 
     # Removing the First Zero
     print('removed the first zero')

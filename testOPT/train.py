@@ -179,8 +179,10 @@ def train_net(epochs, path_name, net, optimizer,run=None):
             optimizer.zero_grad()
 
             # Save weights before gradient step, in order to measure movement
-            if config_dump_movement and (i % config_batch_statistics_freq == 0):
-                old_weights = flat_weight_dump(net)
+            #if config_dump_movement and (i % config_batch_statistics_freq == 0):
+            #    old_weights = flat_weight_dump(net)
+
+            optimizer.trackingSparsity
 
             # Forward + backward + optimize
             outputs = net(inputs)
