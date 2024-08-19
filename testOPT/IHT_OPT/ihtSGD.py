@@ -131,7 +131,7 @@ class ihtSGD(vanillaSGD):
     if sparsity == None:
       sparsity = self.sparsity
     if iterate == 'zt':
-      sparsity = 0.95
+      sparsity = 0.00
 
     concatWeights = torch.zeros((1)).to(self.device)
     for p in self.paramsIter():
@@ -177,7 +177,8 @@ class ihtSGD(vanillaSGD):
       if iterate == None:
         p.data *= state['xt_frozen']
       else:
-        state[iterate] *= state[f"{iterate}_frozen"]
+        #state[iterate] *= state[f"{iterate}_frozen"]
+        state[iterate] *= state['xt_frozen']
 
   def freeze(self,iterate=None):
     cutOff = self.getCutOff(iterate=iterate)
