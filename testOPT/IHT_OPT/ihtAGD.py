@@ -56,7 +56,7 @@ class ihtAGD(vanillaAGD,ihtSGD):
     self.sparsify()
 
     ## OFF
-    self.sparsify(iterate='zt')
+    #self.sparsify(iterate='zt')
 
     self.copyXT()
 
@@ -66,7 +66,7 @@ class ihtAGD(vanillaAGD,ihtSGD):
 
     ## OFF
     # Freeze zt
-    self.freeze(iterate='zt')
+    #self.freeze(iterate='zt')
 
     pass
 
@@ -124,7 +124,7 @@ class ihtAGD(vanillaAGD,ihtSGD):
     self.refreeze()
 
     ## OFF
-    self.refreeze('zt')
+    #self.refreeze('zt')
 
   def trackMatchingMasks(self):
     concatMatchMask = torch.zeros((1)).to(self.device)
