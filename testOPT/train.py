@@ -180,13 +180,31 @@ def train_net(epochs, path_name, net, optimizer,run=None):
             train_loss = loss.item()
 
 
-            _, predicted = torch.max(outputs.data, 1)
-            correct = (predicted == labels.to(device)).sum().item()
-            train_acc = 100 * correct / labels.size(0)
+            ## SOURCE: https://github.com/weiaicunzai/pytorch-cifar100/blob/master/test.py
+            
+
+            _, pred = outputs.topk(5, 1, largest=True, sorted=True)
+
+            label = label.view(label.size(0), -1).expand_as(pred)
+            correct = pred.eq(label).float()
+
+            #compute top 5
+            correct_5 += correct[:, :5].sum()
+
+            #compute top1
+            correct_1 += correct[:, :1].sum()
+
+
+
+            #_, predicted = torch.max(outputs.data, 1)
+            #correct = (predicted == labels.to(device)).sum().item()
+            train_acc = 100 * correct_1 / labels.size(0)
+            topFive_acc = 100 * correct_5 / labels.size(0)
 
             if withNeptune:
                 run[f"trials/{optimizer.methodName}/{"dummyLoss"}"].append(train_loss)
                 run[f"trials/{optimizer.methodName}/{"dummyAcc"}"].append(train_acc)
+                run[f"trials/{optimizer.methodName}/{"topFiveAcc"}"].append(topFive_acc)
 
             #last_train_acc = train_acc
 
