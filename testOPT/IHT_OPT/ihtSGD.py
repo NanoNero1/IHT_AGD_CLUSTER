@@ -177,7 +177,8 @@ class ihtSGD(vanillaSGD):
       if iterate == None:
         p.data *= state['xt_frozen']
       else:
-        state[iterate] *= state[f"{iterate}_frozen"]
+        #state[iterate] *= state[f"{iterate}_frozen"]
+        state[iterate] *= state['xt_frozen']
 
   def freeze(self,iterate=None):
     cutOff = self.getCutOff(iterate=iterate)
