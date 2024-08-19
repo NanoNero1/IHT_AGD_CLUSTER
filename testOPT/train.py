@@ -98,8 +98,14 @@ def test(testloader, net, device):
     correct = 0
     total = 0
     loss = 0
+
+    correct_1 = 0.0
+    correct_5 = 0.0
+
     with torch.no_grad():
         for batch_idx, data in enumerate(testloader):
+
+            
 
 
             # Get the inputs
@@ -109,19 +115,31 @@ def test(testloader, net, device):
 
             outputs = net(inputs)
 
+            ## SOURCE: https://github.com/weiaicunzai/pytorch-cifar100/blob/master/test.py
+            
+
+            _, pred = outputs.topk(5, 1, largest=True, sorted=True)
+
+            label = labels.view(labels.size(0), -1).expand_as(pred)
+            correct = pred.eq(label).float()
+
+            #compute top 5
+            correct_5 += correct[:, :5].sum()
+
+            #compute top1
+            correct_1 += correct[:, :1].sum()
+
             #huh = criterion(outputs, labels)
             #print(huh)
             #loss += criterion(outputs, labels) * labels.size(0)
 
             # track total loss until now, not average loss
 
-            _, predicted = torch.max(outputs.data, 1)
-
-            #print(predicted)
-            #print(labels)
-            #abort()
+            #_, predicted = torch.max(outputs.data, 1)
             total += labels.size(0)
-            correct += (predicted == labels).sum().item()
+            #correct += (predicted == labels).sum().item()
+
+            topFive_acc = 100 * correct_5 / labels.size(0)
 
             #_, predicted = torch.max(outputs.data, 1)
             #correct = (predicted == labels.to(device)).sum().item()
@@ -133,7 +151,7 @@ def test(testloader, net, device):
             #    % (loss/total, 100.*correct/total, correct, total))
     # Return the average loss (i.e. total loss averaged by number of samples)
     #return (loss.item() / total, 100.0*correct/total, total)
-    return (0, 100*correct/total, total)
+    return (0, 100*correct_1/total, total,topFive_acc)
 
 # Trains the network
 def train_net(epochs, path_name, net, optimizer,run=None):
@@ -180,31 +198,15 @@ def train_net(epochs, path_name, net, optimizer,run=None):
             train_loss = loss.item()
 
 
-            ## SOURCE: https://github.com/weiaicunzai/pytorch-cifar100/blob/master/test.py
-            
 
-            _, pred = outputs.topk(5, 1, largest=True, sorted=True)
-
-            label = labels.view(labels.size(0), -1).expand_as(pred)
-            correct = pred.eq(label).float()
-
-            #compute top 5
-            correct_5 += correct[:, :5].sum()
-
-            #compute top1
-            correct_1 += correct[:, :1].sum()
-
-
-
-            #_, predicted = torch.max(outputs.data, 1)
-            #correct = (predicted == labels.to(device)).sum().item()
-            train_acc = 100 * correct_1 / labels.size(0)
-            topFive_acc = 100 * correct_5 / labels.size(0)
+            _, predicted = torch.max(outputs.data, 1)
+            correct = (predicted == labels.to(device)).sum().item()
+            train_acc = 100 * correct / labels.size(0)
 
             if withNeptune:
                 run[f"trials/{optimizer.methodName}/{"dummyLoss"}"].append(train_loss)
                 run[f"trials/{optimizer.methodName}/{"dummyAcc"}"].append(train_acc)
-                run[f"trials/{optimizer.methodName}/{"topFiveAcc"}"].append(topFive_acc)
+                #run[f"trials/{optimizer.methodName}/{"topFiveAcc"}"].append(topFive_acc)
 
             #last_train_acc = train_acc
 
@@ -234,10 +236,11 @@ def train_net(epochs, path_name, net, optimizer,run=None):
             #     n_iter = n_iter + 1
 
             if i  == 20:
-                final_loss,check_accuracy,final_total = test(testloader, net, device)
+                final_loss,check_accuracy,final_total,topFive_acc = test(testloader, net, device)
                 print(check_accuracy)
                 
                 run[f"trials/{optimizer.methodName}/{"checkAccuracy"}"].append(check_accuracy)
+                run[f"trials/{optimizer.methodName}/{"topFive_acc"}"].append(topFive_acc)
                 #abort()
             #     #abort()
         
