@@ -252,7 +252,7 @@ def train_net(epochs, path_name, net, optimizer,run=None):
         if epoch in [40,50]:
             #if epoch in [6,10,14]:
             optimizer.beta *= 5.0
-            optimizer.kappa = np.round(np.sqrt(optimizer.kappa))
+            optimizer.kappa = np.round(np.sqrt(optimizer.kappa),2)
             run[f"trials/{optimizer.methodName}/{"lr"}"].append(optimizer.param_groups[0]['lr'])
             for g in optimizer.param_groups:
                  g['lr'] *= 0.200
