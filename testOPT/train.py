@@ -175,6 +175,10 @@ def train_net(epochs, path_name, net, optimizer,run=None):
             inputs = inputs.to(device)
             labels = labels.to(device)
 
+            epoch_size = len(data)
+            print(epoch_size)
+            abort()
+
             # Zero the parameter gradients
             optimizer.zero_grad()
 
