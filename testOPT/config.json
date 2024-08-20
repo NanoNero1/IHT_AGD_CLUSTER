@@ -20,5 +20,5 @@
     "beta":10.0,
     "eps":0.01,
     "kappa":10.0,
-    "sparsity":0.99
+    "sparsity":0.98
 }
