@@ -13,9 +13,12 @@ class ihtAGD(vanillaAGD,ihtSGD):
     self.methodName = "iht_AGD"
     self.alpha = self.beta / self.kappa
 
+    self.specificSteps = 0
+
     
 
   def step(self):
+    self.specificSteps += 1
     #self.trackingSparsity()
     #print(f"speed iteration {self.iteration}")
 
@@ -105,7 +108,8 @@ class ihtAGD(vanillaAGD,ihtSGD):
 
     # CAREFUL! this changes the parameters for the mode!
     self.getNewGrad('zt')
-    self.clipGradients()
+    if self.specificSteps > 8000 and self.specificSteps < 10000:  
+      self.clipGradients()
     ######### ALTERT ######## THERE SHOULD BE self.getNewGrad('zt') above!!!
 
     with torch.no_grad():
