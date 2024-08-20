@@ -12,17 +12,20 @@ class ihtSGD(vanillaSGD):
     self.sparsifyInterval = sparsifyInterval
 
     # Compression, Decompression and Freezing Variables
-    # self.phaseLength = 10
-    # self.compressionRatio = 0.5
-    # self.freezingRatio = 0.2
-    # self.warmupLength = 6
-    # self.startFineTune = 50
 
-    self.phaseLength = 4
+    ## CIFAR10
+    self.phaseLength = 10
     self.compressionRatio = 0.5
     self.freezingRatio = 0.2
-    self.warmupLength = 1
-    self.startFineTune = 16
+    self.warmupLength = 6
+    self.startFineTune = 50
+
+    ## MNIST
+    # self.phaseLength = 4
+    # self.compressionRatio = 0.5
+    # self.freezingRatio = 0.2
+    # self.warmupLength = 1
+    # self.startFineTune = 16
 
     self.areWeCompressed = False
     self.notFrozenYet = True
@@ -177,7 +180,7 @@ class ihtSGD(vanillaSGD):
   
   # NOTE: Refreeze is not only for the PARAMS!
   def refreeze(self,iterate=None):
-    print('remember we need to give an iterate for refreeeze')
+    #print('remember we need to give an iterate for refreeeze')
     for p in self.paramsIter():
       state = self.state[p]
       # TO-DO: make into modular string
