@@ -93,7 +93,7 @@ class ihtAGD(vanillaAGD,ihtSGD):
 
         #Then sparsify z_t+
         ## NOTE to Dim: - you sparsify here
-        if self.areWeCompressed:
+        if self.areWeCompressed and (self.specificSteps < 6000):
           #self.sparsify(iterate='zt')
           self.refreeze(iterate='zt')
 
@@ -108,8 +108,8 @@ class ihtAGD(vanillaAGD,ihtSGD):
 
     # CAREFUL! this changes the parameters for the mode!
     self.getNewGrad('zt')
-    if self.specificSteps > 8000 and self.specificSteps < 10000:  
-      self.clipGradients()
+    #if self.specificSteps > 8000 and self.specificSteps < 10000:  
+    #  self.clipGradients()
     ######### ALTERT ######## THERE SHOULD BE self.getNewGrad('zt') above!!!
 
     with torch.no_grad():
