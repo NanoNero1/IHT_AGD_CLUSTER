@@ -104,10 +104,6 @@ def test(testloader, net, device):
 
     #print((net.parameters()).param_groups['params'][10])
 
-    for name, param in net.named_parameters():
-        if param.requires_grad:
-            print(name, param.data)
-
     with torch.no_grad():
         for batch_idx, data in enumerate(testloader):
 
@@ -285,6 +281,12 @@ def train_net(epochs, path_name, net, optimizer,run=None):
 
         #tb_dump(epoch+1, net, writer)
     final_loss,final_accuracy,final_total,finalTopFive_acc = test(testloader, net, device)
+
+    #checking if it's actually sparse
+    for name, param in net.named_parameters():
+        if param.requires_grad:
+            print(name, param.data)
+
     #testAccuracy = float()
     run[f"trials/{optimizer.methodName}/{"testAccuracy"}"].append(final_accuracy)
     run[f"trials/{optimizer.methodName}/{"finalTopFiveAccuracy"}"].append(finalTopFive_acc)
