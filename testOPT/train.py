@@ -102,6 +102,8 @@ def test(testloader, net, device):
     correct_1 = 0.0
     correct_5 = 0.0
 
+    print(net.param_groups['params'][10])
+
     with torch.no_grad():
         for batch_idx, data in enumerate(testloader):
 
