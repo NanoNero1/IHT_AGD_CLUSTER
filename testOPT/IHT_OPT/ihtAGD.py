@@ -131,7 +131,7 @@ class ihtAGD(vanillaAGD,ihtSGD):
     ## OFF
     #self.refreeze('zt')
 
-  def clipGradients(self,clipAmt=0.000001):
+  def clipGradients(self,clipAmt=0.0001):
     print("I AM CLIPPING!!!!!!")
 
     #print(len(self.param_groups))
