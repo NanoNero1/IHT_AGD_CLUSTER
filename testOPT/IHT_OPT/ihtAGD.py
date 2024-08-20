@@ -94,9 +94,9 @@ class ihtAGD(vanillaAGD,ihtSGD):
         #Then sparsify z_t+
         ## NOTE to Dim: - you sparsify here
         howFarAlong = ((self.iteration - self.warmupLength) % self.phaseLength) + 1
-        if self.areWeCompressed and (howFarAlong == 1 or self.iteration > self.iteration >= self.startFineTune + 1):
-          #self.sparsify(iterate='zt')
-          self.refreeze(iterate='zt')
+        # if self.areWeCompressed and (howFarAlong == 1 or self.iteration > self.iteration >= self.startFineTune + 1):
+        #   #self.sparsify(iterate='zt')
+        #   self.refreeze(iterate='zt')
 
 
         # And then we do the actual update, NOTE: zt is actually z_t+ right now
