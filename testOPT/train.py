@@ -175,7 +175,7 @@ def train_net(epochs, path_name, net, optimizer,run=None):
             inputs = inputs.to(device)
             labels = labels.to(device)
 
-            epoch_size = len(labels)
+            epoch_size = len(trainloader)
             print(epoch_size)
             abort()
 
