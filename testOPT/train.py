@@ -165,9 +165,15 @@ def train_net(epochs, path_name, net, optimizer,run=None):
     # Dump info on the network before running any training step
     #tb_dump(0, net, writer)
     #last_train_acc = 0.0
+
+    setattr(optimizer, 'epoch_size', len(trainloader))
+
     for epoch in range(epochs):  # Loop over the dataset multiple times
 
         epochStepCount = 0
+
+        optimizer.batchIndex = 0
+
         for i, data in enumerate(trainloader, 0):
 
             # Get the inputs
@@ -175,9 +181,7 @@ def train_net(epochs, path_name, net, optimizer,run=None):
             inputs = inputs.to(device)
             labels = labels.to(device)
 
-            epoch_size = len(trainloader)
-            print(epoch_size)
-            abort()
+            optimizer.batchIndex += 1
 
             # Zero the parameter gradients
             optimizer.zero_grad()

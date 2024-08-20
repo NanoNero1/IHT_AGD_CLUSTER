@@ -21,6 +21,8 @@ class ihtSGD(vanillaSGD):
     self.areWeCompressed = False
     self.notFrozenYet = True
 
+    self.batchIndex = 0
+
     # State Initialization
     for p in self.paramsIter():
       state = self.state[p]

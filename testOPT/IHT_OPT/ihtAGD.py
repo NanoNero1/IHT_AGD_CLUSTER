@@ -93,7 +93,7 @@ class ihtAGD(vanillaAGD,ihtSGD):
 
         #Then sparsify z_t+
         ## NOTE to Dim: - you sparsify here
-        if self.areWeCompressed and (self.specificSteps < 6000):
+        if self.areWeCompressed and (self.batchIndex < int(self.epoch_size / 0.5) - 50):
           #self.sparsify(iterate='zt')
           self.refreeze(iterate='zt')
 
