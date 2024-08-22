@@ -99,6 +99,15 @@ class vanillaAGD(vanillaSGD):
     #loss = F.nll_loss(newOutput, target)
     loss.backward()
 
+    # Get z_t accuracy
+    _, predicted = torch.max(newOutput.data, 1)
+    correct = (predicted == target.to(self.device)).sum().item()
+    zt_acc = 100 * correct / target.size(0)
+    self.run[f"trials/{self.methodName}/acc_zt"].append(zt_acc)
+
+    # Track the loss and accuracy of zt
+    self.run[f"trials/{self.methodName}/loss_zt"].append(float(loss.clone().detach()))
+
     if iterate == "zt":
       self.loss_zt = float(loss.clone().detach())
 
