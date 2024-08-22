@@ -97,10 +97,10 @@ class ihtAGD(vanillaAGD,ihtSGD):
         howFarAlong = ((self.iteration - self.warmupLength) % self.phaseLength) + 1
         # if self.areWeCompressed and (howFarAlong == 1):
 
-        if self.iteration >= self.startFineTune:
-          self.refreeze(iterate='zt')
-        else:
-          abort()
+        # if self.iteration >= self.startFineTune:
+        #   self.refreeze(iterate='zt')
+        # else:
+        #   abort()
         #   #pass
 
 
