@@ -261,8 +261,8 @@ def train_net(epochs, path_name, net, optimizer,run=None):
             run[f"trials/{optimizer.methodName}/{'epochSize'}"].append(epochStepCount)
 
         #if (epoch % 5) + 1 == 0:
-        #if epoch in [40,50]:
-        if epoch in [6,10,14]:
+        if epoch in [40,50]:
+            #if epoch in [6,10,14]:
             optimizer.beta *= 5.0
             #optimizer.kappa = np.round(np.sqrt(optimizer.kappa),2)
             run[f"trials/{optimizer.methodName}/{'lr'}"].append(optimizer.param_groups[0]['lr'])
