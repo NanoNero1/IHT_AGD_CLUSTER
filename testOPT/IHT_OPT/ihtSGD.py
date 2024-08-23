@@ -21,19 +21,19 @@ class ihtSGD(vanillaSGD):
     # self.startFineTune = 50
 
     ## MNIST
-    self.phaseLength = 4
-    self.compressionRatio = 0.5
-    self.freezingRatio = 0.2
-    self.warmupLength = 1
-    self.startFineTune = 16
-
-    ## CIFAR100
-    # Compression, Decompression and Freezing Variables
-    # self.phaseLength = 20
+    # self.phaseLength = 4
     # self.compressionRatio = 0.5
     # self.freezingRatio = 0.2
-    # self.warmupLength = 10
-    # self.startFineTune = 170
+    # self.warmupLength = 1
+    # self.startFineTune = 16
+
+    ## CIFAR100
+    #Compression, Decompression and Freezing Variables
+    self.phaseLength = 20
+    self.compressionRatio = 0.5
+    self.freezingRatio = 0.2
+    self.warmupLength = 10
+    self.startFineTune = 170
 
     self.areWeCompressed = False
     self.notFrozenYet = True
