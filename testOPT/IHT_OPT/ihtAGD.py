@@ -97,11 +97,12 @@ class ihtAGD(vanillaAGD,ihtSGD):
         howFarAlong = ((self.iteration - self.warmupLength) % self.phaseLength) + 1
         # if self.areWeCompressed and (howFarAlong == 1):
 
-        # if self.iteration >= self.startFineTune:
-        #   self.refreeze(iterate='zt')
+        if self.iteration >= self.startFineTune:
+          self.refreeze(iterate='zt')
         # else:
-        #   abort()
-        #   #pass
+        #   if self.areWeCompressed:
+        #     self.sparsify(iterate='zt')
+          #pass
 
 
         # And then we do the actual update, NOTE: zt is actually z_t+ right now
