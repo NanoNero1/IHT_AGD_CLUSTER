@@ -99,9 +99,9 @@ class ihtAGD(vanillaAGD,ihtSGD):
 
         if self.iteration >= self.startFineTune:
           self.refreeze(iterate='zt')
-        # else:
-        #   if self.areWeCompressed:
-        #     self.sparsify(iterate='zt')
+        else:
+          if self.areWeCompressed:
+            self.sparsify(iterate='zt')
           #pass
 
 
