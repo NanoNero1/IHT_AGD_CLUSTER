@@ -356,6 +356,10 @@ elif config_architecture == "CIFAR100RN":
     #model = resnet18()
     #model.fc.register_forward_hook(lambda m, inp, out: F.dropout(out, p=0.2, training=m.training))
     print("this should activate")
+elif config_architecture == "CIFAR10PRETRAIN":
+    #resnet50(weights=ResNet50_Weights.IMAGENET1K_V1)
+    pass
+
 else:
     model = MODELS_MAP[config_architecture]()
 net = model.to(device)
