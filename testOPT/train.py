@@ -29,9 +29,10 @@ from IHT_OPT.ihtSGD import ihtSGD
 from IHT_OPT.clipGradientIHTAGD import clipGradientIHTAGD
 
 # Imagenet Model
-from torchvision.models import resnet18
+from torchvision.models import resnet18, ResNet18_Weights
 from torchvision.models import resnet34
 from torchvision.models import resnet50
+
 
 #Neptune
 withNeptune = True
@@ -357,8 +358,9 @@ elif config_architecture == "CIFAR100RN":
     #model.fc.register_forward_hook(lambda m, inp, out: F.dropout(out, p=0.2, training=m.training))
     print("this should activate")
 elif config_architecture == "CIFAR10PRETRAIN":
-    #resnet50(weights=ResNet50_Weights.IMAGENET1K_V1)
-    pass
+    #resnet18(weights=ResNet18_Weights.IMAGENET1K_V1)
+    torch.hub.load("chenyaofo/pytorch-cifar-models", "cifar10_resnet20", pretrained=True)
+    #pass
 
 else:
     model = MODELS_MAP[config_architecture]()
