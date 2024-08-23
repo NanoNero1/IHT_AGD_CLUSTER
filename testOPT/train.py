@@ -89,7 +89,7 @@ def flat_weight_dump(model):
 
 def print_neptune_params(run=None,optimizer=None):
     params_to_neptune = {key: config[key] for key in ['beta','kappa','sparsity','lr','epochs','dataset']}
-    run[f"trials/{optimizer.methodName}/{"params"}"].append(params_to_neptune)
+    run[f"trials/{optimizer.methodName}/{'params'}"].append(params_to_neptune)
 
 
 
@@ -217,8 +217,8 @@ def train_net(epochs, path_name, net, optimizer,run=None):
             train_acc = 100 * correct / labels.size(0)
 
             if withNeptune:
-                run[f"trials/{optimizer.methodName}/{"dummyLoss"}"].append(train_loss)
-                run[f"trials/{optimizer.methodName}/{"dummyAcc"}"].append(train_acc)
+                run[f"trials/{optimizer.methodName}/{'dummyLoss'}"].append(train_loss)
+                run[f"trials/{optimizer.methodName}/{'dummyAcc'}"].append(train_acc)
                 #run[f"trials/{optimizer.methodName}/{"topFiveAcc"}"].append(topFive_acc)
 
             #last_train_acc = train_acc
@@ -252,13 +252,13 @@ def train_net(epochs, path_name, net, optimizer,run=None):
                 final_loss,check_accuracy,final_total,topFive_acc = test(testloader, net, device)
                 print(check_accuracy)
                 
-                run[f"trials/{optimizer.methodName}/{"checkAccuracy"}"].append(check_accuracy)
-                run[f"trials/{optimizer.methodName}/{"topFive_acc"}"].append(topFive_acc)
+                run[f"trials/{optimizer.methodName}/{'checkAccuracy'}"].append(check_accuracy)
+                run[f"trials/{optimizer.methodName}/{'topFive_acc'}"].append(topFive_acc)
                 #abort()
             #     #abort()
         
         if epoch == 0:
-            run[f"trials/{optimizer.methodName}/{"epochSize"}"].append(epochStepCount)
+            run[f"trials/{optimizer.methodName}/{'epochSize'}"].append(epochStepCount)
 
         #if (epoch % 5) + 1 == 0:
         #if epoch in [40,50]:
