@@ -39,8 +39,8 @@ class ihtSGD(vanillaSGD):
     self.phaseLength = 4
     self.compressionRatio = 0.5
     self.freezingRatio = 0.2
-    self.warmupLength = 2
-    self.startFineTune = 10
+    self.warmupLength = 0
+    self.startFineTune = 0
     
 
     self.areWeCompressed = False
