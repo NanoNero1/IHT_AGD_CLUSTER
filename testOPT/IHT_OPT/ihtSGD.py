@@ -14,11 +14,11 @@ class ihtSGD(vanillaSGD):
     # Compression, Decompression and Freezing Variables
 
     ## CIFAR10
-    # self.phaseLength = 10
-    # self.compressionRatio = 0.5
-    # self.freezingRatio = 0.2
-    # self.warmupLength = 6
-    # self.startFineTune = 50
+    self.phaseLength = 10
+    self.compressionRatio = 0.5
+    self.freezingRatio = 0.2
+    self.warmupLength = 6
+    self.startFineTune = 50
 
     ## MNIST
     # self.phaseLength = 4
@@ -150,7 +150,7 @@ class ihtSGD(vanillaSGD):
     if sparsity == None:
       sparsity = self.sparsity
     if iterate == 'zt':
-      sparsity = 0.90
+      sparsity = 0.00
 
     concatWeights = torch.zeros((1)).to(self.device)
     for p in self.paramsIter():
