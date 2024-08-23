@@ -359,7 +359,7 @@ elif config_architecture == "CIFAR100RN":
     print("this should activate")
 elif config_architecture == "CIFAR10PRETRAIN":
     #resnet18(weights=ResNet18_Weights.IMAGENET1K_V1)
-    torch.hub.load("chenyaofo/pytorch-cifar-models", "cifar10_resnet20", pretrained=True)
+    model = torch.hub.load("chenyaofo/pytorch-cifar-models", "cifar10_resnet20", pretrained=True)
     #pass
 
 else:
