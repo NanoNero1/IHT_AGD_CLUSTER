@@ -99,10 +99,9 @@ class ihtAGD(vanillaAGD,ihtSGD):
 
         if self.iteration >= self.startFineTune:
           self.refreeze(iterate='zt')
-        # else:
-        #   if self.areWeCompressed:
-        #     self.sparsify(iterate='zt')
-        #   #pass
+        else:
+          if self.areWeCompressed:
+            self.sparsify(iterate='zt')
 
 
         # And then we do the actual update, NOTE: zt is actually z_t+ right now
