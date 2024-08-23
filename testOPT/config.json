@@ -1,7 +1,7 @@
 {
     "experiment_number": 993,
     "dataset": "CIFAR", 
-    "architecture": "CIFAR10PRETRAIN", 
+    "architecture": "ResNet18", 
     "batch_size": 64, 
     "optimizer": -3, 
     "lr": 0.01, 
@@ -9,7 +9,7 @@
     "weight_decay": 0.0005,
     "radius": 2, 
     "projected": 1, 
-    "epochs": 15, 
+    "epochs": 60, 
     "tb_path": "./no_tb",
     "batch_statistics_freq": 100,
     "dump_movement": 0,
