@@ -14,11 +14,11 @@ class ihtSGD(vanillaSGD):
     # Compression, Decompression and Freezing Variables
 
     ## CIFAR10
-    # self.phaseLength = 10
-    # self.compressionRatio = 0.5
-    # self.freezingRatio = 0.2
-    # self.warmupLength = 6
-    # self.startFineTune = 50
+    self.phaseLength = 10
+    self.compressionRatio = 0.5
+    self.freezingRatio = 0.2
+    self.warmupLength = 6
+    self.startFineTune = 50
 
     ## MNIST
     # self.phaseLength = 4
@@ -29,11 +29,14 @@ class ihtSGD(vanillaSGD):
 
     ## CIFAR100
     #Compression, Decompression and Freezing Variables
-    self.phaseLength = 20
-    self.compressionRatio = 0.5
-    self.freezingRatio = 0.2
-    self.warmupLength = 10
-    self.startFineTune = 170
+    # self.phaseLength = 20
+    # self.compressionRatio = 0.5
+    # self.freezingRatio = 0.2
+    # self.warmupLength = 10
+    # self.startFineTune = 170
+
+    ## PRETRAINEDCIFAR10
+    
 
     self.areWeCompressed = False
     self.notFrozenYet = True
