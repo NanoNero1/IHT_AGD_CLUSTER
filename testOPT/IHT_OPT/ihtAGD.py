@@ -99,7 +99,7 @@ class ihtAGD(vanillaAGD,ihtSGD):
 
         
         if self.iteration >= self.startFineTune:
-         self.refreeze(iterate='zt')
+          self.refreeze(iterate='zt')
 
         ##
 
