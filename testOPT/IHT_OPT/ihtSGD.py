@@ -86,12 +86,11 @@ class ihtSGD(vanillaSGD):
     print(f"HowFarAlong: {howFarAlong} / {self.phaseLength}")
     print(f"Iteration: {self.iteration}")
 
-    #if self.specificSteps < 1:
-    #  self.truncateAndFreeze()
-    #  self.notFrozenYet = False
-
-      
-    if self.iteration < self.warmupLength:
+    if self.specificSteps < 1:
+     abort()
+     self.truncateAndFreeze()
+     self.notFrozenYet = False      
+    elif self.iteration < self.warmupLength:
       ## WARMUP -- PHASE 0
       self.warmup()
       self.notFrozenYet = True
