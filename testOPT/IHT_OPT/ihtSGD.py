@@ -41,7 +41,7 @@ class ihtSGD(vanillaSGD):
     self.compressionRatio = 0.5
     self.freezingRatio = 0.2
     self.warmupLength = 0
-    self.startFineTune = 8
+    self.startFineTune = 0
     
 
     self.areWeCompressed = False
@@ -86,7 +86,7 @@ class ihtSGD(vanillaSGD):
     print(f"HowFarAlong: {howFarAlong} / {self.phaseLength}")
     print(f"Iteration: {self.iteration}")
 
-    if self.specificSteps < 1:
+    if True or self.specificSteps < 1:
      abort()
      self.truncateAndFreeze()
      self.notFrozenYet = False      
