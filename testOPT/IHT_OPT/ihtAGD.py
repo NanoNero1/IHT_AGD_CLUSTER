@@ -19,7 +19,7 @@ class ihtAGD(vanillaAGD,ihtSGD):
 
   def step(self):
     self.specificSteps += 1
-    self.trackingSparsity()
+    #self.trackingSparsity()
     #print(f"speed iteration {self.iteration}")
 
     # Sloppy but works
