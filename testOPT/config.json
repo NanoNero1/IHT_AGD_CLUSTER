@@ -1,7 +1,7 @@
 {
     "experiment_number": 993,
-    "dataset": "CIFAR", 
-    "architecture": "CIFAR10PRETRAIN", 
+    "dataset": "MNIST", 
+    "architecture": "MNIST2", 
     "batch_size": 64, 
     "optimizer": -4, 
     "lr": 0.01, 
