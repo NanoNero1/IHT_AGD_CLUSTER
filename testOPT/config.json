@@ -9,7 +9,7 @@
     "weight_decay": 0.0005,
     "radius": 2, 
     "projected": 1, 
-    "epochs": 60, 
+    "epochs": 10, 
     "tb_path": "./no_tb",
     "batch_statistics_freq": 100,
     "dump_movement": 0,
@@ -20,5 +20,5 @@
     "beta":30.0,
     "eps":0.01,
     "kappa":10.0,
-    "sparsity":0.98
+    "sparsity":0.90
 }
