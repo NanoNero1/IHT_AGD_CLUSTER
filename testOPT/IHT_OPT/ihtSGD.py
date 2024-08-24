@@ -10,15 +10,16 @@ class ihtSGD(vanillaSGD):
 
     super().__init__(params,**kwargs)
     self.sparsifyInterval = sparsifyInterval
+    self.specificSteps = 0
 
     # Compression, Decompression and Freezing Variables
 
     ## CIFAR10
-    self.phaseLength = 10
-    self.compressionRatio = 0.5
-    self.freezingRatio = 0.2
-    self.warmupLength = 6
-    self.startFineTune = 50
+    # self.phaseLength = 10
+    # self.compressionRatio = 0.5
+    # self.freezingRatio = 0.2
+    # self.warmupLength = 6
+    # self.startFineTune = 50
 
     ## MNIST
     # self.phaseLength = 4
@@ -36,11 +37,11 @@ class ihtSGD(vanillaSGD):
     # self.startFineTune = 170
 
     ## PRETRAINEDCIFAR10
-    # self.phaseLength = 4
-    # self.compressionRatio = 0.5
-    # self.freezingRatio = 0.2
-    # self.warmupLength = 0
-    # self.startFineTune = 0
+    self.phaseLength = 2
+    self.compressionRatio = 0.5
+    self.freezingRatio = 0.2
+    self.warmupLength = 0
+    self.startFineTune = 8
     
 
     self.areWeCompressed = False
@@ -85,15 +86,20 @@ class ihtSGD(vanillaSGD):
     print(f"HowFarAlong: {howFarAlong} / {self.phaseLength}")
     print(f"Iteration: {self.iteration}")
 
+    #if self.specificSteps < 1:
+    #  self.truncateAndFreeze()
+    #  self.notFrozenYet = False
+
+      
     if self.iteration < self.warmupLength:
       ## WARMUP -- PHASE 0
       self.warmup()
       self.notFrozenYet = True
-
     elif self.iteration >= self.startFineTune:
 
       if self.notFrozenYet == True:
         ## FREEZING WEIGHTS -- PHASE 1
+        abort()
         self.truncateAndFreeze()
         self.notFrozenYet = False
       else:

@@ -257,6 +257,7 @@ def train_net(epochs, path_name, net, optimizer,run=None):
                 run[f"trials/{optimizer.methodName}/{'topFive_acc'}"].append(topFive_acc)
                 #abort()
             #     #abort()
+            #optimizer.specificSteps += 1
         
         if epoch == 0:
             run[f"trials/{optimizer.methodName}/{'epochSize'}"].append(epochStepCount)
