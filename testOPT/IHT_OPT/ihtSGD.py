@@ -86,7 +86,7 @@ class ihtSGD(vanillaSGD):
     print(f"HowFarAlong: {howFarAlong} / {self.phaseLength}")
     print(f"Iteration: {self.iteration}")
 
-    if True or self.specificSteps < 1:
+    if self.specificSteps < 1:
      abort()
      self.truncateAndFreeze()
      self.notFrozenYet = False      
@@ -98,7 +98,7 @@ class ihtSGD(vanillaSGD):
 
       if self.notFrozenYet == True:
         ## FREEZING WEIGHTS -- PHASE 1
-        abort()
+        #abort()
         self.truncateAndFreeze()
         self.notFrozenYet = False
       else:
