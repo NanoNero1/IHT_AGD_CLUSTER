@@ -19,7 +19,7 @@ class ihtAGD(vanillaAGD,ihtSGD):
 
   def step(self):
     self.specificSteps += 1
-    self.saveOldIterates()
+    #self.saveOldIterates()
     #self.trackingSparsity()
     #print(f"speed iteration {self.iteration}")
 
@@ -35,8 +35,8 @@ class ihtAGD(vanillaAGD,ihtSGD):
     #self.trackMatchingMasks(self)
     #self.iteration += 1
 
-    self.trackIterateMovement()
-    self.trackChangeMask()
+    #self.trackIterateMovement()
+    #self.trackChangeMask()
   #def returnSparse(self):
 
   def decompressed(self):
@@ -101,16 +101,16 @@ class ihtAGD(vanillaAGD,ihtSGD):
         # if self.areWeCompressed and (howFarAlong == 1):
 
         
-        if self.iteration >= self.startFineTune:
-         self.refreeze(iterate='zt')
+        # if self.iteration >= self.startFineTune:
+        #  self.refreeze(iterate='zt')
 
         ##
 
-        # if self.areWeCompressed:
-        #   if self.iteration >= self.startFineTune:
-        #     self.refreeze(iterate='zt')
-        #   else:
-        #     self.sparsify(iterate='zt')
+        if self.areWeCompressed:
+          if self.iteration >= self.startFineTune:
+            self.refreeze(iterate='zt')
+          else:
+            self.sparsify(iterate='zt')
 
 
         # And then we do the actual update, NOTE: zt is actually z_t+ right now
