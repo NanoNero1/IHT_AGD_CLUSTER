@@ -194,8 +194,8 @@ class ihtAGD(vanillaAGD,ihtSGD):
       xt_diff = state['xt'] - state['prev_xt']
       zt_diff = state['zt'] - state['prev_zt']
 
-      concat_xt_diff =  torch.cat((torch.flatten(concat_xt_diff),xt_diff),0)
-      concat_zt_diff =  torch.cat((torch.flatten(concat_zt_diff),zt_diff),0)
+      concat_xt_diff =  torch.cat((concat_xt_diff,torch.flatten(xt_diff)),0)
+      concat_zt_diff =  torch.cat((concat_zt_diff,torch.flatten(zt_diff)),0)
     
     avg_xt_move = torch.sum(torch.abs(concat_xt_diff)) / len(concat_xt_diff)
     avg_zt_move = torch.sum(torch.abs(concat_zt_diff)) / len(concat_zt_diff)
