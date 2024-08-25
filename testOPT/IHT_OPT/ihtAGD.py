@@ -18,6 +18,7 @@ class ihtAGD(vanillaAGD,ihtSGD):
     
 
   def step(self):
+    self.copyXT()
     self.specificSteps += 1
     self.saveOldIterates()
     #self.trackingSparsity()
