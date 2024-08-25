@@ -177,7 +177,15 @@ class ihtAGD(vanillaAGD,ihtSGD):
       state['prev_xt'] = p.data.clone().detach()
       state['prev_zt'] = state['zt'].clone().detach()
 
-  #def trackIterateMovement(self):
+  def trackIterateMovement(self):
+    concatXtMove = torch.zeros((1)).to(self.device)
+
+    for p in self.paramsIter():
+      state = self.state[p]
+
+      matchingMask = ((torch.abs(p.data) > 0).type(torch.uint8) == (torch.abs(state['zt'])).type(torch.uint8) > 0 ).type(torch.float)
+      
+      concatMatchMask = torch.cat((concatMatchMask,matchingMask),0)
 
 
 
