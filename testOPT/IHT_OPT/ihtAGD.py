@@ -237,7 +237,7 @@ class ihtAGD(vanillaAGD,ihtSGD):
     for p in self.paramsIter():
       state = self.state[p]
 
-      if state['xt'] != p.data:
+      if (state['xt'] != p.data).any():
         abort()
 
 
