@@ -18,6 +18,7 @@ class ihtAGD(vanillaAGD,ihtSGD):
     
 
   def step(self):
+    self.copyXT()
     self.specificSteps += 1
     self.saveOldIterates()
     #self.trackingSparsity()
@@ -149,7 +150,6 @@ class ihtAGD(vanillaAGD,ihtSGD):
     print('compressed step')
     self.updateWeightsTwo()
     self.refreeze()
-    abort()
 
     ## OFF
     #self.refreeze('zt')
@@ -216,7 +216,7 @@ class ihtAGD(vanillaAGD,ihtSGD):
 
       #matchingMask = ((torch.abs(p.data) > 0).type(torch.uint8) == (torch.abs(state['zt'])).type(torch.uint8) > 0 ).type(torch.float)
       oldMask = (torch.abs(state['prev_xt']) > 0).type(torch.float)
-      newMask = (torch.abs(state['xt']) > 0).type(torch.float)
+      newMask = (torch.abs(p.data) > 0).type(torch.float)
 
       diffMask = (oldMask != newMask).type(torch.float)
 
