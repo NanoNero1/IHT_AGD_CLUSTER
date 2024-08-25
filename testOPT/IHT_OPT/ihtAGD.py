@@ -223,7 +223,7 @@ class ihtAGD(vanillaAGD,ihtSGD):
     
     avg_xt_moveMask = torch.sum(concat_xt_diffmask) / len(concat_xt_diffmask)
 
-    self.run[f"trials/{self.methodName}/move_xt"].append(avg_xt_moveMask)
+    self.run[f"trials/{self.methodName}/move_xt_mask"].append(avg_xt_moveMask)
     #self.run[f"trials/{self.methodName}/move_zt"].append(avg_zt_move)
 
     
