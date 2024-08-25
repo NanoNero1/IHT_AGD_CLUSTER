@@ -18,7 +18,7 @@ class ihtAGD(vanillaAGD,ihtSGD):
     
 
   def step(self):
-    self.copyXT()
+    #self.copyXT()
     self.specificSteps += 1
     self.saveOldIterates()
     #self.trackingSparsity()
@@ -138,8 +138,11 @@ class ihtAGD(vanillaAGD,ihtSGD):
         # NOTE: p.grad is now the gradient at zt
         p.data = state['xt'] - (1.0 / pow(self.alpha*self.beta , 0.5)) * p.grad
 
+
+
     # We need to keep a separate storage of xt because we replace the actual network parameters
-    self.copyXT()
+    #self.copyXT()
+    self.checkXTCopy(self)
 
     # OFF
     pass
@@ -192,7 +195,7 @@ class ihtAGD(vanillaAGD,ihtSGD):
       state = self.state[p]
 
       #matchingMask = ((torch.abs(p.data) > 0).type(torch.uint8) == (torch.abs(state['zt'])).type(torch.uint8) > 0 ).type(torch.float)
-      xt_diff = state['xt'] - state['prev_xt']
+      xt_diff = p.data.clone().detach() - state['prev_xt']
       zt_diff = state['zt'] - state['prev_zt']
 
       concat_xt_diff =  torch.cat((concat_xt_diff,torch.flatten(xt_diff)),0)
@@ -230,6 +233,13 @@ class ihtAGD(vanillaAGD,ihtSGD):
     
 
       #concatMatchMask = torch.cat((concatMatchMask,matchingMask),0)
+
+  def checkXTCopy(self):
+    for p in self.paramsIter():
+      state = self.state[p]
+
+      if state['xt'] != p.data:
+        abort()
 
 
 
