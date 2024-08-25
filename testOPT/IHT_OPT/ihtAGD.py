@@ -45,6 +45,14 @@ class ihtAGD(vanillaAGD,ihtSGD):
     print('decompressed')
     self.updateWeightsTwo()
 
+  def compressedStep(self):
+    print('compressed step')
+    self.updateWeightsTwo()
+    self.copyGradient()
+    abort()
+
+    self.refreeze()
+
   def warmup(self):
     self.areWeCompressed = False
     print('warmup')
