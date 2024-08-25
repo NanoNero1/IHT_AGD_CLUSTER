@@ -79,6 +79,8 @@ class ihtAGD(vanillaAGD,ihtSGD):
 
   def updateWeightsTwo(self):
 
+    self.saveOldIterates()
+
     print("AGD updateWeights")
     # Update z_t the according to the AGD equation in the note
 
@@ -98,16 +100,16 @@ class ihtAGD(vanillaAGD,ihtSGD):
         # if self.areWeCompressed and (howFarAlong == 1):
 
         
-        # if self.iteration >= self.startFineTune:
-        #  self.refreeze(iterate='zt')
+        if self.iteration >= self.startFineTune:
+         self.refreeze(iterate='zt')
 
         ##
 
-        if self.areWeCompressed:
-          if self.iteration >= self.startFineTune:
-            self.refreeze(iterate='zt')
-          else:
-            self.sparsify(iterate='zt')
+        # if self.areWeCompressed:
+        #   if self.iteration >= self.startFineTune:
+        #     self.refreeze(iterate='zt')
+        #   else:
+        #     self.sparsify(iterate='zt')
 
 
         # And then we do the actual update, NOTE: zt is actually z_t+ right now
@@ -136,6 +138,10 @@ class ihtAGD(vanillaAGD,ihtSGD):
 
     # We need to keep a separate storage of xt because we replace the actual network parameters
     self.copyXT()
+
+    # OFF
+    self.trackIterateMovement()
+    pass
 
 
   def compressedStep(self):
@@ -183,9 +189,22 @@ class ihtAGD(vanillaAGD,ihtSGD):
     for p in self.paramsIter():
       state = self.state[p]
 
-      matchingMask = ((torch.abs(p.data) > 0).type(torch.uint8) == (torch.abs(state['zt'])).type(torch.uint8) > 0 ).type(torch.float)
-      
-      concatMatchMask = torch.cat((concatMatchMask,matchingMask),0)
+      #matchingMask = ((torch.abs(p.data) > 0).type(torch.uint8) == (torch.abs(state['zt'])).type(torch.uint8) > 0 ).type(torch.float)
+      xt_diff = state['xt'] - state['prev_xt']
+      zt_diff = state['zt'] - state['prev_zt']
+
+      concat_xt_diff =  torch.cat((concat_xt_diff,xt_diff),0)
+      concat_zt_diff =  torch.cat((concat_zt_diff,zt_diff),0)
+    
+    avg_xt_move = torch.sum(concat_xt_diff) / len(concat_xt_diff)
+    avg_zt_move = torch.sum(concat_zt_diff) / len(concat_zt_diff)
+
+    self.run[f"trials/{self.methodName}/move_xt"].append(avg_xt_move)
+    self.run[f"trials/{self.methodName}/move_zt"].append(avg_zt_move)
+
+    
+
+      #concatMatchMask = torch.cat((concatMatchMask,matchingMask),0)
 
 
 
