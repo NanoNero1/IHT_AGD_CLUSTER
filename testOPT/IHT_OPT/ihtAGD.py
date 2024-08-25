@@ -98,16 +98,16 @@ class ihtAGD(vanillaAGD,ihtSGD):
         # if self.areWeCompressed and (howFarAlong == 1):
 
         
-        if self.iteration >= self.startFineTune:
-         self.refreeze(iterate='zt')
+        # if self.iteration >= self.startFineTune:
+        #  self.refreeze(iterate='zt')
 
         ##
 
-        # if self.areWeCompressed:
-        #   if self.iteration >= self.startFineTune:
-        #     self.refreeze(iterate='zt')
-        #   else:
-        #     self.sparsify(iterate='zt')
+        if self.areWeCompressed:
+          if self.iteration >= self.startFineTune:
+            self.refreeze(iterate='zt')
+          else:
+            self.sparsify(iterate='zt')
 
 
         # And then we do the actual update, NOTE: zt is actually z_t+ right now
@@ -170,6 +170,15 @@ class ihtAGD(vanillaAGD,ihtSGD):
       concatMatchMask = torch.cat((concatMatchMask,matchingMask),0)
 
     self.run[f"trials/{self.methodName}/matchingMasks"].append(torch.mean(matchingMask))
+
+  def saveOldIterates(self):
+    for p in self.paramsIter():
+      state = state = self.state[p]
+      state['prev_xt'] = p.data.clone().detach()
+      state['prev_zt'] = state['zt'].clone().detach()
+
+  #def trackIterateMovement(self):
+
 
 
   def weightedSparsify(self,iterate):
