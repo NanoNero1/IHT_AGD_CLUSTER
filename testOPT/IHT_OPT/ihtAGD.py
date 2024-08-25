@@ -184,7 +184,8 @@ class ihtAGD(vanillaAGD,ihtSGD):
       state['prev_zt'] = state['zt'].clone().detach()
 
   def trackIterateMovement(self):
-    concatXtMove = torch.zeros((1)).to(self.device)
+    concat_xt_diff = torch.zeros((1)).to(self.device)
+    concat_zt_diff = torch.zeros((1)).to(self.device)
 
     for p in self.paramsIter():
       state = self.state[p]
@@ -196,8 +197,8 @@ class ihtAGD(vanillaAGD,ihtSGD):
       concat_xt_diff =  torch.cat((concat_xt_diff,xt_diff),0)
       concat_zt_diff =  torch.cat((concat_zt_diff,zt_diff),0)
     
-    avg_xt_move = torch.sum(concat_xt_diff) / len(concat_xt_diff)
-    avg_zt_move = torch.sum(concat_zt_diff) / len(concat_zt_diff)
+    avg_xt_move = torch.sum(torch.abs(concat_xt_diff)) / len(concat_xt_diff)
+    avg_zt_move = torch.sum(torch.abs(concat_zt_diff)) / len(concat_zt_diff)
 
     self.run[f"trials/{self.methodName}/move_xt"].append(avg_xt_move)
     self.run[f"trials/{self.methodName}/move_zt"].append(avg_zt_move)
