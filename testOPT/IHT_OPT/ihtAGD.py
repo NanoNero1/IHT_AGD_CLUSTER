@@ -18,7 +18,6 @@ class ihtAGD(vanillaAGD,ihtSGD):
     
 
   def step(self):
-    #self.copyXT()
     self.specificSteps += 1
     self.saveOldIterates()
     #self.trackingSparsity()
@@ -141,8 +140,8 @@ class ihtAGD(vanillaAGD,ihtSGD):
 
 
     # We need to keep a separate storage of xt because we replace the actual network parameters
-    self.copyXT()
-    self.checkXTCopy(self)
+    #self.copyXT()
+    self.checkXTCopy()
 
     # OFF
     pass
