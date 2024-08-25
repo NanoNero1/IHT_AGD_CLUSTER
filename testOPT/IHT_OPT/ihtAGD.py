@@ -18,7 +18,6 @@ class ihtAGD(vanillaAGD,ihtSGD):
     
 
   def step(self):
-    self.copyXT()
     self.specificSteps += 1
     self.saveOldIterates()
     #self.trackingSparsity()
@@ -44,14 +43,6 @@ class ihtAGD(vanillaAGD,ihtSGD):
     self.areWeCompressed = False
     print('decompressed')
     self.updateWeightsTwo()
-
-  def compressedStep(self):
-    print('compressed step')
-    self.updateWeightsTwo()
-    self.copyGradient()
-    abort()
-
-    self.refreeze()
 
   def warmup(self):
     self.areWeCompressed = False
@@ -158,6 +149,7 @@ class ihtAGD(vanillaAGD,ihtSGD):
     print('compressed step')
     self.updateWeightsTwo()
     self.refreeze()
+    abort()
 
     ## OFF
     #self.refreeze('zt')
