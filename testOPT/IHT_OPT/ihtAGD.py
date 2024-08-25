@@ -19,6 +19,7 @@ class ihtAGD(vanillaAGD,ihtSGD):
 
   def step(self):
     self.specificSteps += 1
+    self.saveOldIterates()
     #self.trackingSparsity()
     #print(f"speed iteration {self.iteration}")
 
@@ -34,6 +35,7 @@ class ihtAGD(vanillaAGD,ihtSGD):
     #self.trackMatchingMasks(self)
     #self.iteration += 1
 
+    self.trackIterateMovement()
   #def returnSparse(self):
 
   def decompressed(self):
@@ -78,8 +80,6 @@ class ihtAGD(vanillaAGD,ihtSGD):
   ##############################################################################
 
   def updateWeightsTwo(self):
-
-    self.saveOldIterates()
 
     print("AGD updateWeights")
     # Update z_t the according to the AGD equation in the note
@@ -140,7 +140,6 @@ class ihtAGD(vanillaAGD,ihtSGD):
     self.copyXT()
 
     # OFF
-    self.trackIterateMovement()
     pass
 
 
