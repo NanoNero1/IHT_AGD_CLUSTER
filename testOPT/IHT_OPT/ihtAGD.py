@@ -208,7 +208,7 @@ class ihtAGD(vanillaAGD,ihtSGD):
       #concatMatchMask = torch.cat((concatMatchMask,matchingMask),0)
 
   def trackChangeMask(self):
-    concat_x5mask_diff = torch.zeros((1)).to(self.device)
+    concat_xt_diffmask = torch.zeros((1)).to(self.device)
 
     for p in self.paramsIter():
       state = self.state[p]
