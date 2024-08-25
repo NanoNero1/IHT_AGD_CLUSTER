@@ -36,6 +36,7 @@ class ihtAGD(vanillaAGD,ihtSGD):
     #self.iteration += 1
 
     self.trackIterateMovement()
+    self.trackChangeMask()
   #def returnSparse(self):
 
   def decompressed(self):
@@ -205,6 +206,34 @@ class ihtAGD(vanillaAGD,ihtSGD):
     
 
       #concatMatchMask = torch.cat((concatMatchMask,matchingMask),0)
+
+  def trackChangeMask(self):
+    concat_x5mask_diff = torch.zeros((1)).to(self.device)
+
+    for p in self.paramsIter():
+      state = self.state[p]
+
+      #matchingMask = ((torch.abs(p.data) > 0).type(torch.uint8) == (torch.abs(state['zt'])).type(torch.uint8) > 0 ).type(torch.float)
+      oldMask = (torch.abs(state['prev_xt']) > 0).type(torch.float)
+      newMask = (torch.abs(state['xt']) > 0).type(torch.float)
+
+      diffMask = (oldMask != newMask).type(torch.float)
+
+      concat_xt_diffmask=  torch.cat((concat_xt_diffmask,torch.flatten(diffMask)),0)
+    
+    avg_xt_moveMask = torch.sum(concat_xt_diffmask) / len(concat_xt_diffmask)
+
+    self.run[f"trials/{self.methodName}/move_xt"].append(avg_xt_moveMask)
+    #self.run[f"trials/{self.methodName}/move_zt"].append(avg_zt_move)
+
+    
+
+      #concatMatchMask = torch.cat((concatMatchMask,matchingMask),0)
+
+
+
+    #(torch.abs(concatLinear) > 0).type(torch.float)
+
 
 
 
