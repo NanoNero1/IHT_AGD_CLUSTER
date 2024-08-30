@@ -294,6 +294,11 @@ def train_net(epochs, path_name, net, optimizer,run=None):
     run[f"trials/{optimizer.methodName}/{'finalTopFiveAccuracy'}"].append(finalTopFive_acc)
     print('Finished Training')
 
+    optimizer.modelSwitchIterate(iterate='zt')
+    final_loss,final_accuracy,final_total,finalTopFive_acc = test(testloader, net, device)
+    run[f"trials/{optimizer.methodName}/{'testAccuracyZT'}"].append(final_accuracy)
+
+
     #writer.close()
 
 
