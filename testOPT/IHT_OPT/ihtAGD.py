@@ -242,7 +242,16 @@ class ihtAGD(vanillaAGD,ihtSGD):
 
 
 
+
+
     #(torch.abs(concatLinear) > 0).type(torch.float)
+
+  def modelSwitchIterate(self,iterate):
+    with torch.no_grad():
+      for p in self.paramsIter():
+        state = self.state[p]
+        p.data = state[iterate].clone().detach()
+
 
 
 
