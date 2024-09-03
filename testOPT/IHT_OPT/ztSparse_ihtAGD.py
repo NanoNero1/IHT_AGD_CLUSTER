@@ -26,14 +26,12 @@ class ztSparse_ihtAGD(clipGradientIHTAGD):
             # And then we do the actual update, NOTE: zt is actually z_t+ right now
             state['zt'] = (self.sqKappa / (self.sqKappa + 1.0) ) * state['zt'] + (1.0 / (self.sqKappa + 1.0)) * state['xt']
 
-    # CAREFUL! this changes the parameters for the model
+    # careful, this changes the parameters for the model
     self.getNewGrad('zt')
     self.clipGradients()
 
     with torch.no_grad():
         for p in self.paramsIter():
-            #print(p.grad)
-            # CHECK: Is it still the same state?
             state = self.state[p]
             state['zt_oldGrad'] = p.grad.clone().detach()
 

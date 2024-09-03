@@ -19,25 +19,8 @@ class ihtAGD(vanillaAGD,ihtSGD):
 
   def step(self):
     self.specificSteps += 1
-    #self.saveOldIterates()
-    #self.trackingSparsity()
-    #print(f"speed iteration {self.iteration}")
-
-    # Sloppy but works
-    #newSparsityIter = np.floor( (self.iteration - 100) / 80)
-    #self.sparsity = min(0.9, 0.5 + 0.1*newSparsityIter)
-    #self.easyPrintParams()
-    #self.logging()
-
-    #print('we got this far at least then')
 
     self.compressOrDecompress()
-    #self.trackMatchingMasks(self)
-    #self.iteration += 1
-
-    #self.trackIterateMovement()
-    #self.trackChangeMask()
-  #def returnSparse(self):
 
   def decompressed(self):
     self.areWeCompressed = False
@@ -55,26 +38,14 @@ class ihtAGD(vanillaAGD,ihtSGD):
     self.updateWeightsTwo()
     self.areWeCompressed = True
 
-    print('this should work')
-    # define zt
-
-
-
     # Truncate xt
     self.sparsify()
-
-    ## OFF
-    #self.sparsify(iterate='zt')
 
     self.copyXT()
 
 
     # Freeze xt
     self.freeze()
-
-    ## OFF
-    # Freeze zt
-    #self.freeze(iterate='zt')
 
     pass
 
@@ -94,17 +65,7 @@ class ihtAGD(vanillaAGD,ihtSGD):
         #First Get z_t+
         state['zt'] = (state['zt'] - (state['zt_oldGrad'] / self.beta) )
 
-        #Then sparsify z_t+
-        ## NOTE to Dim: - you sparsify here
-        #or  self.iteration >= self.startFineTune + 1):
         howFarAlong = ((self.iteration - self.warmupLength) % self.phaseLength) + 1
-        # if self.areWeCompressed and (howFarAlong == 1):
-
-        
-        # if self.iteration >= self.startFineTune:
-        #  self.refreeze(iterate='zt')
-
-        ##
 
         if self.areWeCompressed:
           if self.iteration >= self.startFineTune:
@@ -116,21 +77,10 @@ class ihtAGD(vanillaAGD,ihtSGD):
         # And then we do the actual update, NOTE: zt is actually z_t+ right now
         state['zt'] = (self.sqKappa / (self.sqKappa + 1.0) ) * state['zt'] + (1.0 / (self.sqKappa + 1.0)) * state['xt']
 
-        #Find the new z_t
-        #state['zt'] = (self.sqKappa / (self.sqKappa + 1.0) ) * (state['zt'] - (state['zt_oldGrad'] / self.beta) ) + (1.0 / (self.sqKappa + 1.0)) * state['xt']
-
-    #self.sparsify(iterate='zt')
-
-    # CAREFUL! this changes the parameters for the mode!
     self.getNewGrad('zt')
-    #if self.specificSteps > 8000 and self.specificSteps < 10000:  
-    #  self.clipGradients()
-    ######### ALTERT ######## THERE SHOULD BE self.getNewGrad('zt') above!!!
 
     with torch.no_grad():
       for p in self.paramsIter():
-        #print(p.grad)
-        # CHECK: Is it still the same state?
         state = self.state[p]
         state['zt_oldGrad'] = p.grad.clone().detach()
 
@@ -141,9 +91,6 @@ class ihtAGD(vanillaAGD,ihtSGD):
 
     # We need to keep a separate storage of xt because we replace the actual network parameters
     self.copyXT()
-    #self.checkXTCopy()
-
-    # OFF
     pass
 
 
@@ -153,20 +100,8 @@ class ihtAGD(vanillaAGD,ihtSGD):
     self.updateWeightsTwo()
     self.refreeze()
 
-    ## OFF
-    #self.refreeze('zt')
-
   def clipGradients(self,clipAmt=0.0001):
-    print("I AM CLIPPING!!!!!!")
-
-    #print(len(self.param_groups))
-    #print("these are the groups")
-    #abort()
-
-    #torch.nn.utils.clip_grad_norm_(self.param_groups[0]['params'],norm_type='inf', max_norm=clipAmt)
     torch.nn.utils.clip_grad_value_(self.param_groups[0]['params'],clip_value=clipAmt)
-    #for i 
-    #torch.clamp(self.param_groups[0]['params'],min=-1.0*clipAmt,clipAmt=1.0)
     pass
 
   def trackMatchingMasks(self):
@@ -186,14 +121,13 @@ class ihtAGD(vanillaAGD,ihtSGD):
       state['prev_xt'] = p.data.clone().detach()
       state['prev_zt'] = state['zt'].clone().detach()
 
+  # Tracking how much the iterate moves between steps
   def trackIterateMovement(self):
     concat_xt_diff = torch.zeros((1)).to(self.device)
     concat_zt_diff = torch.zeros((1)).to(self.device)
 
     for p in self.paramsIter():
       state = self.state[p]
-
-      #matchingMask = ((torch.abs(p.data) > 0).type(torch.uint8) == (torch.abs(state['zt'])).type(torch.uint8) > 0 ).type(torch.float)
       xt_diff = p.data.clone().detach() - state['prev_xt']
       zt_diff = state['zt'] - state['prev_zt']
 
@@ -206,17 +140,13 @@ class ihtAGD(vanillaAGD,ihtSGD):
     self.run[f"trials/{self.methodName}/move_xt"].append(avg_xt_move)
     self.run[f"trials/{self.methodName}/move_zt"].append(avg_zt_move)
 
-    
-
-      #concatMatchMask = torch.cat((concatMatchMask,matchingMask),0)
-
+  # Tracking how much the mask changes
   def trackChangeMask(self):
     concat_xt_diffmask = torch.zeros((1)).to(self.device)
 
     for p in self.paramsIter():
       state = self.state[p]
 
-      #matchingMask = ((torch.abs(p.data) > 0).type(torch.uint8) == (torch.abs(state['zt'])).type(torch.uint8) > 0 ).type(torch.float)
       oldMask = (torch.abs(state['prev_xt']) > 0).type(torch.float)
       newMask = (torch.abs(p.data) > 0).type(torch.float)
 
@@ -227,12 +157,8 @@ class ihtAGD(vanillaAGD,ihtSGD):
     avg_xt_moveMask = torch.sum(concat_xt_diffmask) / len(concat_xt_diffmask)
 
     self.run[f"trials/{self.methodName}/move_xt_mask"].append(avg_xt_moveMask)
-    #self.run[f"trials/{self.methodName}/move_zt"].append(avg_zt_move)
 
-    
-
-      #concatMatchMask = torch.cat((concatMatchMask,matchingMask),0)
-
+  # To make sure we're copying xt correctly
   def checkXTCopy(self):
     for p in self.paramsIter():
       state = self.state[p]
@@ -240,20 +166,11 @@ class ihtAGD(vanillaAGD,ihtSGD):
       if (state['xt'] != p.data).any():
         abort()
 
-
-
-
-
-    #(torch.abs(concatLinear) > 0).type(torch.float)
-
   def modelSwitchIterate(self,iterate):
     with torch.no_grad():
       for p in self.paramsIter():
         state = self.state[p]
         p.data = state[iterate].clone().detach()
-
-
-
 
 
   def weightedSparsify(self,iterate):
@@ -278,21 +195,8 @@ class ihtAGD(vanillaAGD,ihtSGD):
       for p in self.paramsIter():
         state = self.state[p]
         if iterate == None:
-          #print("!!!!!!!!!!! this should sparsify the params")
           p.data[torch.abs(p) * torch.log(p.size()) <= weightedCutoff] = 0.0
         else:
-          # NOTE: torch.abs(p) is wrong, maybe that's the bug
           (state[iterate])[torch.abs(state[iterate]) * torch.log(state[iterate].size()) <= weightedCutoff] = 0.0
-
-
-
-
-    
-
-    
-
-
-
-
 
   ##########################################
