@@ -103,8 +103,6 @@ def test(testloader, net, device):
     correct_1 = 0.0
     correct_5 = 0.0
 
-    #print((net.parameters()).param_groups['params'][10])
-
     with torch.no_grad():
         for batch_idx, data in enumerate(testloader):
 
@@ -132,15 +130,8 @@ def test(testloader, net, device):
             #compute top1
             correct_1 += correct[:, :1].sum()
 
-            #huh = criterion(outputs, labels)
-            #print(huh)
-            #loss += criterion(outputs, labels) * labels.size(0)
-
             # track total loss until now, not average loss
-
-            #_, predicted = torch.max(outputs.data, 1)
             total += labels.size(0)
-            #correct += (predicted == labels).sum().item()
 
             
 
@@ -189,17 +180,10 @@ def train_net(epochs, path_name, net, optimizer,run=None):
             # Zero the parameter gradients
             optimizer.zero_grad()
 
-            # Save weights before gradient step, in order to measure movement
-            #if config_dump_movement and (i % config_batch_statistics_freq == 0):
-            #    old_weights = flat_weight_dump(net)
-
-            #optimizer.trackingSparsity()
-
             # Forward + backward + optimize
             outputs = net(inputs)
             loss = criterion(outputs, labels)
 
-            #run[f"trials/{optimizer.trialNumber}/{optimizer.setupID}/loss"].append(loss)
             loss.backward()
 
             # For AGD
@@ -211,8 +195,6 @@ def train_net(epochs, path_name, net, optimizer,run=None):
             # Compute statistics
             train_loss = loss.item()
 
-
-
             _, predicted = torch.max(outputs.data, 1)
             correct = (predicted == labels.to(device)).sum().item()
             train_acc = 100 * correct / labels.size(0)
@@ -222,64 +204,29 @@ def train_net(epochs, path_name, net, optimizer,run=None):
                 run[f"trials/{optimizer.methodName}/{'dummyAcc'}"].append(train_acc)
                 #run[f"trials/{optimizer.methodName}/{"topFiveAcc"}"].append(topFive_acc)
 
-            #last_train_acc = train_acc
-
-            # if i == 0:
-            #     print('newline')
-            #     progress_bar(
-            #         i, len(trainloader), 'Loss: %.5f | Acc: %.3f%%'
-            #         % (train_loss, 100.*correct/labels.size(0)))
-            #     dummy=0
-
             epochStepCount = i
-
-
-            
-            # # Print statistics every couple of mini-batches
-            # if i % config_batch_statistics_freq == 0:
-            #     writer.add_scalar('Loss/batch', train_loss, n_iter)
-            #     writer.add_scalar('Accuracy/batch', train_acc, n_iter)
-
-            #     if config_dump_movement:
-            #         new_weights = flat_weight_dump(net)
-            #         movement = torch.norm(
-            #             torch.add(old_weights, new_weights, alpha=-1))
-            #         writer.add_scalar('Movement', movement.item(), n_iter)
-
-            #     writer.flush()
-            #     n_iter = n_iter + 1
 
             if i  == 20:
                 final_loss,check_accuracy,final_total,topFive_acc = test(testloader, net, device)
                 print(check_accuracy)
                 
+                #Logging test accuracy 20 steps into the epoch
                 run[f"trials/{optimizer.methodName}/{'checkAccuracy'}"].append(check_accuracy)
                 run[f"trials/{optimizer.methodName}/{'topFive_acc'}"].append(topFive_acc)
-                #abort()
-            #     #abort()
-            #optimizer.specificSteps += 1
         
         if epoch == 0:
             run[f"trials/{optimizer.methodName}/{'epochSize'}"].append(epochStepCount)
 
-        #if (epoch % 5) + 1 == 0:
+        # Adjusting the Learning Rate by a factor of 0.2
         if epoch in [40,50]:
             #if epoch in [6,10,14]:
             optimizer.beta *= 5.0
-            #optimizer.kappa = np.round(np.sqrt(optimizer.kappa),2)
             run[f"trials/{optimizer.methodName}/{'lr'}"].append(optimizer.param_groups[0]['lr'])
             for g in optimizer.param_groups:
                  g['lr'] *= 0.200
             run[f"trials/{optimizer.methodName}/{'lr'}"].append(optimizer.param_groups[0]['lr'])
 
         optimizer.iteration += 1
-
-        
-
-
-
-
-    
 
         #tb_dump(epoch+1, net, writer)
     final_loss,final_accuracy,final_total,finalTopFive_acc = test(testloader, net, device)
@@ -289,7 +236,7 @@ def train_net(epochs, path_name, net, optimizer,run=None):
         if param.requires_grad:
             print(name, param.data)
 
-    #testAccuracy = float()
+    # Logging the final accuracies
     run[f"trials/{optimizer.methodName}/{'testAccuracy'}"].append(final_accuracy)
     run[f"trials/{optimizer.methodName}/{'finalTopFiveAccuracy'}"].append(finalTopFive_acc)
     print('Finished Training')
@@ -362,16 +309,15 @@ elif config_architecture == "CIFAR100RN":
     model = torch.hub.load('pytorch/vision:v0.10.0', 'wide_resnet50_2', pretrained=False)
     #model = resnet18()
     #model.fc.register_forward_hook(lambda m, inp, out: F.dropout(out, p=0.2, training=m.training))
-    print("this should activate")
 elif config_architecture == "CIFAR10PRETRAIN":
     #resnet18(weights=ResNet18_Weights.IMAGENET1K_V1)
     model = torch.hub.load("chenyaofo/pytorch-cifar-models", "cifar10_resnet20", pretrained=True)
-    #pass
-
 else:
     model = MODELS_MAP[config_architecture]()
 net = model.to(device)
 criterion = nn.CrossEntropyLoss()
+
+# Start of Dimitri's optimizers
 if config_optimizer == -6:
     optimizer = torch.optim.Adam(net.parameters(), lr=0.001)
     setattr(optimizer, 'methodName', 'ADAM')
@@ -402,6 +348,7 @@ elif config_optimizer == 0:
     setattr(optimizer, 'methodName', 'nativeSGD')
     setattr(optimizer, 'iteration', 0)
     setattr(optimizer, 'beta', 1.0)
+    # End of Dimitri's optimizers
 elif config_optimizer == 1:
     optimizer = optim.Adagrad(
       net.parameters(), lr=config_lr, weight_decay=config_weight_decay)
@@ -459,16 +406,9 @@ if withNeptune:
 for param in net.parameters():
     print(str(torch.min(param.data).item()) + " " + str(torch.max(param.data).item()))
 
-#exit()
 
-
-#kappas: 30:50:20
-#betas: 30:50:20
 
 def top5(epochs,path_name, net, optimizer,run):
-    
-    # it has to be 5 x testlenght?
-    #testSize = testloader.samples?
     topFivePredictions = torch.zeros(5,)
 
     for trialIdx in range(5):
