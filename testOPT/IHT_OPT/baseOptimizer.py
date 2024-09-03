@@ -69,7 +69,6 @@ class myOptimizer(Optimizer):
   #           pass
   #         else:
   #           continue
-  #         # TO-DO: make it the same as function??
         
   #       self.run[f"trials/{self.trialNumber}/{self.setupID}/{variable}"].append(eval("self."+variable))
 
@@ -109,7 +108,6 @@ class myOptimizer(Optimizer):
 
   """ Desc: use it like 'for i in paramsIterator():' """
 
-  # CHECK: that using 'yield' is efficient, does this just pass references or copy the entire tensor?
   def paramsIter(self):
     for group in self.param_groups:
       for p in group['params']:
@@ -117,7 +115,6 @@ class myOptimizer(Optimizer):
 
 
   ### These methods are mandatory to be overridden after inheritance
-  ### CHECK: there should be an error if they are not implemented
   """ Desc: the main function that the optimizer gets called on every iteration """
   @abc.abstractmethod
   def step(self,getNewGrad):
